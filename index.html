@@ -43,7 +43,7 @@
 	$(function () {
 		var getData = function (request, response) {
 				jQuery_1.getJSON(
-						//"https://manji209.github.io/SearchHub/geocodes.json?callback=?" + request.term,
+
 						"https://ciscotalenthub.github.io/TalentHub//geocodes.json?callback=?" + request.term,
 						function (data) {
 							var array = $.map(data.geocodes, function (item) {
@@ -67,9 +67,34 @@
 				source: getData,
 				select: selectItem,
 				minLength: 2,
-				//change: function() {
-						//$("#where").val("").css("display", 2);
-				//}
+		});
+
+		//Job Titles Autocomplete
+		var getTitle = function (request, response) {
+				jQuery_1.getJSON(
+
+						"https://ciscotalenthub.github.io/TalentHub//job_titles.json?callback=?" + request.term,
+						function (data) {
+							var array = $.map(data.titles, function (item) {
+								return {
+									label: item.label,
+									value: item.value
+								}
+							});
+							response(jQuery_1.ui.autocomplete.filter(array, request.term));
+						});
+		};
+
+		var selectTitle = function (event, ui) {
+
+				$("#title").val(ui.item.label);
+				return false;
+		}
+
+		jQuery_1("#title").autocomplete({
+				source: getTitle,
+				select: selectTitle,
+				minLength: 2,
 		});
 });
 	</script>
