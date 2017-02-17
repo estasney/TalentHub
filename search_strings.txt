@@ -1,0 +1,1 @@
+https://www.linkedin.com/vsearch/p?keywords=(%22java%22%20OR%20%22javascript%22)%20AND%20(%22python%22%20OR%20%22script%22)%20NOT%20(%22ccnp%22)&title=software%20engineer&company=cisco&openAdvancedForm=true&titleScope=CP&companyScope=CP&locationType=Y&f_G=us%3A84&rsid=2132689341487321086482&orig=ADVS

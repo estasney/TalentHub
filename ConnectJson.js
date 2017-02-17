@@ -13,7 +13,7 @@ if (options.crossDomain && jQuery.support.cors) {
 
 function testBox(word, tab_button){
 
-  var url = "https://hiringsolved.com/api/v2/related?q=" + word + "&size=100&filter=true";
+  var url = "https://hiringsolved.com/api/v2/related?q=" + word + "&size=50&filter=true";
   //Removes all the Buttons created from the last call
   document.getElementById(tab_button).innerHTML = "";
 
@@ -58,14 +58,21 @@ $.get(url, function (response) {
 
 }
 
+//Determine which radio button is active and ..
 //Gets the value of the resulting word and add it to the boolean search box
 function getValue(clicked_id) {
 	var txt = document.getElementById(clicked_id).value;
-  search = document.getElementById("what").value;
+  txt = '"'+ txt + '"';
+  var bool_selected = document.querySelector('input[name = "input_radio"]:checked').value;
+  search = document.getElementById(bool_selected).value;
 
   if(!search.includes(txt)){
-    search = search + " " + txt;
-    document.getElementById("what").value = search;
+    if(search){
+      search = search + " " + "OR" + " " + txt;
+      document.getElementById(bool_selected).value = search;
+    }else {
+      search = txt;
+      document.getElementById(bool_selected).value = search;
+    }
   }
-
 }

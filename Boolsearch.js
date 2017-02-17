@@ -1,100 +1,129 @@
+function openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geocode) {
 
-function openSearch(website, search, loc, geocode){
+    var search = "";
+    var search_opt = "";
+    //Construct the boolean string with the AND operators
+    switch (website) {
 
-switch (website){
-  case 'github':
-    var str = search.trim();
-    str = str.replace(/ /g, '+');
-    var github_url = "https://github.com/search?utf8=✓&q=" + str + "&type=Repositories&ref=searchresults";
-    var win = window.open(github_url, '_blank');
-      if (win) {
-        //Browser has allowed it to be opened
-        win.focus();
-      } else {
-        //Browser has blocked it
-        alert('Please allow popups for this website');
-      }
-      break;
-  case 'indeed':
-    var str = search.trim();
-    str = str.replace(/ /g, '+');
-    var location = loc.replace(/ /g, '+');
-    location = location.replace(',', '%2C');
-    var indeed_url = "https://www.indeed.com/resumes?q=" + str + "&l=" + location;
-    var win = window.open(indeed_url, '_blank');
-      if (win) {
-        //Browser has allowed it to be opened
-        win.focus();
-      } else {
-        //Browser has blocked it
-        alert('Please allow popups for this website');
-      }
-      break;
-    case 'dice':
-      var str = search.trim();
-      var location = loc.replace(',', '%2C');
-      var dice_url = "https://employer.dice.com/ows/isearch.html?keywords=" + str + "&&search=true&location=" + location;
-      var win = window.open(dice_url, '_blank');
-          if (win) {
-
-          //Browser has allowed it to be opened
-          win.focus();
-
-        } else {
-          //Browser has blocked it
-          alert('Please allow popups for this website');
-        }
-        break;
-      case 'google':
-        var str = search.trim();
-        str = str.replace(/ /g, '+');
-        var location = loc.replace(/ /g, '+');
-        location = location.replace(',', '%2C');
-          var google_url = "https://www.google.com/#q=" + str + "+" + location;
-          var win = window.open(google_url, '_blank');
-              if (win) {
-
-              //Browser has allowed it to be opened
-              win.focus();
-
-            } else {
-              //Browser has blocked it
-              alert('Please allow popups for this website');
-            }
-          break;
         case 'linkedin':
-            var str = search.trim();
-            str = str.replace(/ /g, '%20').replace(/"/g, '%22').replace(/:/g, '%3A').replace(/\(/g, '%28').replace(/\)/g, '%29');
-            var code = geocode.split('.');
-
-            if (code.length == 4) {
-              var geo_area = code[1];
-              var geo_num = code[3];
+            if (bool1) {
+                var str_bool1 = bool1.trim();
+                str_bool1 = "(" + str_bool1 + ")";
             } else {
-              var geo_area = code[1];
-              var geo_num = '0';
+                break;
             }
 
-            if (geocode) {
-              var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + str + "&openAdvancedForm=true&locationType=Y&f_G=" + geo_area + "%3A" + geo_num + "&rsid=2132689341487064709807&orig=ADVS";
+            if (bool2) {
+                var str_bool2 = bool2.trim();
+                str_bool2 = "(" + str_bool2 + ")";
             } else {
-              var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + str + "&orig=GLHD&rsid=2132689341487064883850&pageKey=voltron_federated_search_internal_jsp&trkInfo=&trk=global_header&search=Search";
+                search = str_bool1;
+                break;
             }
 
-              //var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + str + "&openAdvancedForm=true&locationType=Y&f_G=" + geo_area + "%3A" + geo_num + "&rsid=2132689341487064709807&orig=ADVS";
-              var win = window.open(linkedin_url, '_blank');
-                  if (win) {
+            if (bool3) {
+                var str_bool3 = bool3.trim();
+                str_bool3 = "(" + str_bool3 + ")";
+            } else {
+                search = str_bool1 + " AND " + str_bool2;
+                break;
+            }
 
-                  //Browser has allowed it to be opened
-                  win.focus();
+            if (bool4) {
+                var str_bool4 = bool4.trim();
+                str_bool4 = "(" + str_bool4 + ")";
+                search = str_bool1 + " AND " + str_bool2 + " AND " + str_bool3 + " AND " + str_bool4;
+                break;
+            } else {
+                search = str_bool1 + " AND " + str_bool2 + " AND " + str_bool3;
+                break;
+            }
+    } //End switch
 
-                } else {
-                  //Browser has blocked it
-                  alert('Please allow popups for this website');
-                }
-              break;
+    //Append the NOT to the boolean string if present
+    if (bool_not) {
+        var str_not = bool_not.trim();
+        str_not = "(" + str_not + ")";
+        search = search + " NOT " + str_not;
+    }
+
+    //Replace space and quotes with unicode equivelent
+    search = search.replace(/ /g, '%20').replace(/"/g, '%22');
+
+    //Check for optional search criteria Job Title and Company
+    if (title) {
+        var str_title = title.replace(/ /g, '%20');
+        search_opt = "&title=" + str_title;
+        if (company) {
+            //Job Title and Company is present
+            var str_company = company.replace(/ /g, '%20');
+            search_opt = search_opt + "&company=" + str_company + "&openAdvancedForm=true&titleScope=CP&companyScope=CP&locationType=Y";
+            search = search + search_opt;
+        } else {
+            //Only Job Title is present
+            search_opt = search_opt + "&openAdvancedForm=true&titleScope=CP&locationType=Y";
+            search = search + search_opt;
+        }
+    } else if (company) {
+        //Only Company is present
+        var str_company = company.replace(/ /g, '%20');
+        search_opt = "&company=" + str_company + "&openAdvancedForm=true&companyScope=CP&locationType=Y";
+        search = search + search_opt;
+    } else {
+      //No optional search criteria used
+      search = search + "&openAdvancedForm=true&locationType=Y";
+    }
 
 
-  }
+    //str = str.replace(/ /g, '%20').replace(/"/g, '%22').replace(/:/g, '%3A').replace(/\(/g, '%28').replace(/\)/g, '%29');
 
+    //Process the geocode
+    var code = geocode.split('.');
+
+    if (code.length == 4) {
+        var geo_area = code[1];
+        var geo_num = code[3];
+    } else {
+        var geo_area = code[1];
+        var geo_num = '0';
+    }
+
+    //Append the Geographic code if present
+    if (geocode) {
+        var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + search + "&f_G=" + geo_area + "%3A" + geo_num + "&rsid=2132689341487064709807&orig=ADVS";
+    } else {
+        var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + search + "&rsid=2132689341487321114500&orig=ADVS";
+    }
+
+    //var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + str + "&openAdvancedForm=true&locationType=Y&f_G=" + geo_area + "%3A" + geo_num + "&rsid=2132689341487064709807&orig=ADVS";
+    var win = window.open(linkedin_url, '_blank');
+    if (win) {
+
+        //Browser has allowed it to be opened
+        win.focus();
+
+    } else {
+        //Browser has blocked it
+        alert('Please allow popups for this website');
+    }
+
+}
+
+
+
+
+//Clear and resets all Boolean search box to empty
+function clearBoolean() {
+
+    document.getElementById("bool1").value = "";
+    document.getElementById("bool2").value = "";
+    document.getElementById("bool3").value = "";
+    document.getElementById("bool4").value = "";
+    document.getElementById("bool_not").value = "";
+    document.getElementById("company").value = "";
+    document.getElementById("title").value = "";
+    document.getElementById("geoarea").value = "";
+    document.getElementById("geocode").value = "";
+
+    document.getElementById("radio1").checked = true;
 }
