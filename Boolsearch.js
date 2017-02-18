@@ -126,4 +126,10 @@ function clearBoolean() {
     document.getElementById("geocode").value = "";
 
     document.getElementById("radio1").checked = true;
+    $("#bool2").css({"box-shadow": "", "border": ""});
+    $("#bool3").css({"box-shadow": "", "border": ""});
+    $("#bool4").css({"box-shadow": "", "border": ""});
+    $("#bool_not").css({"box-shadow": "", "border": ""});
+
+    $("#bool1").css({"box-shadow": "0 0 5px rgba(81, 203, 238, 1)", "border": "5px solid rgba(81, 203, 238, 1)"});
 }

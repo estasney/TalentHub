@@ -1,104 +1,111 @@
 input.input_text {
-      border: 1px solid #ccc;
-      -moz-border-radius: 10px;
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-      -moz-box-shadow: 2px 2px 3px #666;
-      -webkit-box-shadow: 2px 2px 3px #666;
-      box-shadow: 2px 2px 3px #666;
-      font-size: 20px;
-      padding: 4px 7px;
-      outline: 0;
-      //width: 70%;
-      height: 40px;
-      -webkit-appearance: none;
-    }
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 20px;
+    padding: 4px 7px;
+    outline: 0;
+    //width: 70%;
+    height: 40px;
+    -webkit-appearance: none;
+}
 
-    input.input_text:focus {
-      border-color: #339933;
-    }
+input.input_text:focus {
+    border-color: #339933;
+}
 
-    input.results_buttons {
-      background-color: #f60;
-      text-align: center;
-      border: 1px solid #ccc;
-      -moz-border-radius: 10px;
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-      -moz-box-shadow: 2px 2px 3px #666;
-      -webkit-box-shadow: 2px 2px 3px #666;
-      box-shadow: 2px 2px 3px #666;
-      font-size: 22px;
-      padding: 4px 7px;
-      outline: 0;
-      //width: 70%;
-      height: 45px;
-      -webkit-appearance: none;
-    }
+input.results_buttons {
+    background-color: #f60;
+    text-align: center;
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 22px;
+    padding: 4px 7px;
+    outline: 0;
+    //width: 70%;
+    height: 45px;
+    -webkit-appearance: none;
+}
 
-    .npb {
-        padding-bottom: 0;
-        color: #000000;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
+.npb {
+    padding-bottom: 0;
+    color: #000000;
+    text-transform: uppercase;
+    font-weight: bold;
+}
 
-    .npb_header {
-        padding-bottom: 0;
-        color: #f60;
-        text-transform: lowercase;
-        font-weight: bold;
-    }
+.npb_header {
+    padding-bottom: 0;
+    color: #f60;
+    text-transform: lowercase;
+    font-weight: bold;
+}
 
-    td {
-    font-family: Arial,sans-serif;
+td {
+    font-family: Arial, sans-serif;
     font-size: 20pt;
 }
 
-
-    button.input_submit {
-      background-color: #ADD8E6;
-      text-align: center;
-      border: 1px solid #ccc;
-      -moz-border-radius: 10px;
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-      -moz-box-shadow: 2px 2px 3px #666;
-      -webkit-box-shadow: 2px 2px 3px #666;
-      box-shadow: 2px 2px 3px #666;
-      font-size: 20px;
-      padding: 4px 7px;
-      outline: 0;
-      //width: 70%;
-      height: 45px;
-      -webkit-appearance: none;
-    }
-
-     button.input_boolean {
-      background-color: #ADD8E6;
-      text-align: center;
-      border: 1px solid #ccc;
-      -moz-border-radius: 10px;
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-      -moz-box-shadow: 2px 2px 3px #666;
-      -webkit-box-shadow: 2px 2px 3px #666;
-      box-shadow: 2px 2px 3px #666;
-      font-size: 20px;
-      padding: 4px 7px;
-      outline: 0;
-      //width: 70%;
-      height: 45px;
-
-      -webkit-appearance: none;
-    }
-
-    .divider{
-    width:200px;
-    height:auto;
-    display:inline-block;
+button.input_submit {
+    background-color: #ADD8E6;
+    text-align: center;
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 20px;
+    padding: 4px 7px;
+    outline: 0;
+    //width: 70%;
+    height: 45px;
+    -webkit-appearance: none;
 }
 
+button.input_boolean {
+    background-color: #ADD8E6;
+    text-align: center;
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 20px;
+    padding: 4px 7px;
+    outline: 0;
+    //width: 70%;
+    height: 45px;
+    -webkit-appearance: none;
+}
 
+.divider {
+    width: 200px;
+    height: auto;
+    display: inline-block;
+}
 
-    input.bool_radio{ width: 25px !important; height: 25px !important; }
+/* Hide all the radio buttons */
+input[type="radio"] {
+    visibility: hidden;
+}
+
+/* Disable the radio button re-size because buttons are hidden from above css
+
+input.bool_radio {
+    width: 25px !important;
+    height: 25px !important;
+}
+*/
