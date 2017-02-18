@@ -1,400 +1,351 @@
 <!DOCTYPE html>
 <html>
-<head>
-   <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js" ></script>
-   <script type="text/javascript" src="ConnectJson.js" ></script>
-   <script type="text/javascript" src="Boolsearch.js" ></script>
 
-<link rel="stylesheet" href="Mystyles.css" type="text/css">
+<head>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js" ></script>
+	<script type="text/javascript" src="ConnectJson.js" ></script>
+	<script type="text/javascript" src="Boolsearch.js" ></script>
+
+	<link rel="stylesheet" href="./style/style.min.css" type="text/css">
+	<link rel="stylesheet" href="./style/hub.style.css" type="text/css">
+
+	<style type="text/css" media="screen">
+		html {
+			margin-top: 32px !important;
+		}
+
+		* html body {
+			margin-top: 32px !important;
+		}
+
+		@media screen and ( max-width: 782px) {
+			html {
+				margin-top: 46px !important;
+			}
+			* html body {
+				margin-top: 46px !important;
+			}
+		}
+	</style>
+
 
 </head>
+
+<!-- jQuery UI Autocomple for Geographic Area.  Data retrieve from json file -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript"> var jQuery_1 = $.noConflict(true);</script>
+
+	<script type="text/javascript">
+
+	$(function () {
+		var getData = function (request, response) {
+				jQuery_1.getJSON(
+
+						"https://ciscotalenthub.github.io/TalentHub//geocodes.json?callback=?" + request.term,
+						function (data) {
+							var array = $.map(data.geocodes, function (item) {
+								return {
+									label: item.description,
+									value: item.code
+								}
+							});
+							response(jQuery_1.ui.autocomplete.filter(array, request.term));
+						});
+		};
+
+		var selectItem = function (event, ui) {
+
+				$("#geoarea").val(ui.item.label);
+				$("#geocode").val(ui.item.value);
+				return false;
+		}
+
+		jQuery_1("#geoarea").autocomplete({
+				source: getData,
+				select: selectItem,
+				minLength: 2,
+		});
+
+		//Job Titles Autocomplete
+		var getTitle = function (request, response) {
+				jQuery_1.getJSON(
+
+						"https://ciscotalenthub.github.io/TalentHub//job_titles.json?callback=?" + request.term,
+						function (data) {
+							var array = $.map(data.titles, function (item) {
+								return {
+									label: item.label,
+									value: item.value
+								}
+							});
+							response(jQuery_1.ui.autocomplete.filter(array, request.term));
+						});
+		};
+
+		var selectTitle = function (event, ui) {
+
+				$("#title").val(ui.item.label);
+				return false;
+		}
+
+		jQuery_1("#title").autocomplete({
+				source: getTitle,
+				select: selectTitle,
+				minLength: 2,
+		});
+});
+	</script>
+
 <body>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type="text/javascript"> var jQuery_1 = $.noConflict(true);</script>
 
-    <script type="text/javascript">
-
-    $(function () {
-      var getData = function (request, response) {
-          jQuery_1.getJSON(
-              "https://manji209.github.io/SearchHub/geocodes.json?callback=?" + request.term,
-              function (data) {
-                var array = $.map(data.geocodes, function (item) {
-                  return {
-                    label: item.description,
-                    value: item.code
-                  }
-                });
-                response(jQuery_1.ui.autocomplete.filter(array, request.term));
-              });
-      };
-
-      var selectItem = function (event, ui) {
-          $("#where2").val(ui.item.label);
-          $("#where3").val(ui.item.value);
-          $("#geoarea").val(ui.item.label);
-          $("#geocode").val(ui.item.value);
-          return false;
-      }
-
-      jQuery_1("#where2").autocomplete({
-          source: getData,
-          select: selectItem,
-          minLength: 2,
-          //change: function() {
-              //$("#where").val("").css("display", 2);
-          //}
-      });
-  });
-    </script>
-
-    <script type="text/javascript" src="https://www.google.com/jsapi?key=AIzaSyAiTzz9PxjyQ6A06Qx6UUbEhCtBqGO4bwY"></script>
-    <script type="text/javascript">
-
-      google.load("maps", "3.x", {callback: initialize, other_params:'sensor=false&libraries=places&key=AIzaSyAiTzz9PxjyQ6A06Qx6UUbEhCtBqGO4bwY'});
-        function initialize() {
-            var input = document.getElementById('where');
-
-            var autocomplete = new google.maps.places.Autocomplete(input, { types: ['(cities)'], region:'EU' });
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var place = autocomplete.getPlace();
-                $(input).val(place.address_components[0].long_name + ", " + place.address_components[2].short_name);
-                if (!place.geometry) {
-                    console.log('no location');
-                    return;
-                }
-                console.log(place);
-            });
-        }
-    </script>
-<form>
+	<div id="main" class="clearfix width-100" style="padding-left:5px;padding-right:5px">
+		<div class="fusion-row" style="max-width:100%;">
+			<div id="content" class="full-width">
+				<div id="post-8" class="post-8 page type-page status-publish hentry">
 
 
 
-    <table cellspacing="2" cellpadding="3" width="90%" align="center">
+					<div class="post-content">
+						<div class="fusion-fullwidth fullwidth-box hundred-percent-fullwidth" style='background-color: rgba(255,255,255,0);background-position: center center;background-repeat: no-repeat;padding-top:20px;padding-right:30px;padding-bottom:20px;padding-left:30px;'>
+							<div class="fusion-builder-row fusion-row ">
+								<div class="fusion-layout-column fusion_builder_column fusion_builder_column_1_2  fusion-one-half fusion-column-first 1_2" style='margin-top:0px;margin-bottom:20px;width:50%;width:calc(50% - ( ( 4% ) * 0.5 ) );margin-right: 4%;'>
+									<div class="fusion-column-wrapper" style="background-position:left top;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;" data-bg-url="">
+										<form>
 
-      <colgroup>
-       <col span="1" style="width: 85%;">
-       <col span="1" style="width: 15%;">
+											<table cellspacing="2" cellpadding="3" width="100%" align="center">
 
-    </colgroup>
+												<colgroup>
+													<col style="width: 5%;">
+													<col span="2" style="width: 90%;">
+													<col style="width: 5%;">
 
-    <tbody><tr>
-    <td class="npb"><label for="what" id="what_label_top" aria-hidden="true">boolean</label></td>
-    <td class="npb" colspan="2"><label for="where" id="where_label_top" aria-hidden="true">location</label></td>
-    </tr>
+												</colgroup>
 
-    <tr>
-    <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="what"></td>
-    <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" size="15" aria-labelledby="where_label_top hidden_colon where_label_bot" name="l" autocomplete="off" id="where"></td>
-    </tr>
+												<tbody>
 
-    <tr>
-    <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="LinkedIn Geographic Area" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="where2"></span></td>
-    <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Geographic Code" size="15" aria-labelledby="where_label_top hidden_colon where_label_bot" name="l" autocomplete="off" id="where3"></td>
-    </tr>
+													<tr>
+														<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
+														<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">boolean</label></td>
 
-    </tbody></table>
+													</tr>
 
+													<tr>
+
+														<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
+
+														<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio1')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool1"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool1" checked="checked" id="radio1"></td>
+
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio2')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool2"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool2" id="radio2"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio3')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool3"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool3" id="radio3"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio4')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool4"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool4" id="radio4"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">NOT</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('bool_radio')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool_not"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool_not" id="bool_radio"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="company"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="title"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Geographic Area" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="geoarea"><input type="hidden" id="geocode"></td>
+</tr>
+
+
+
+</tbody>
 </table>
-</form>
 <br>
+<table cellspacing="2" cellpadding="3" width="100%" align="center">
 
-<form>
-    <table cellspacing="2" cellpadding="3" width="40%" align="center">
-
-      <colgroup>
-       <col span="1" style="width: 20%;">
-       <col span="1" style="width: 20%;">
-<!--       <col span="1" style="width: 20%;"> -->
-       <col span="1" style="width: 20%;">
-       <col span="1" style="width: 20%;">
+    <colgroup>
+       <col style="width: 50%;">
+       <col style="width: 50%;">
 
     </colgroup>
 
-    <tbody><tr>
-    <td class="logo"><img src=".\assets\github.png" onclick="openTab('github')"></img></td>
-    <td class="logo"><img src=".\assets\indeed.png" onclick="openTab('indeed')"></img></td>
-    <td class="logo"><img src=".\assets\dice.png" onclick="openTab('dice')"></img></td>
-<!--    <td class="logo"><img src=".\assets\google.png" onclick="openTab('google')"></img></td> -->
-    <td class="logo"><img src=".\assets\linkedin.png" onclick="openTab('linkedin')"></img></td>
-    </tr>
+<tbody>
 
-    </tbody></table>
+<tr>
 
+<td class="npl" style="width:1px" align="center">
+<button id="fj" onclick="clearBoolean()" type="button" class="input_boolean" >Clear</button></td>
+
+<td class="npl" style="width:1px" align="center">
+<button id="fj" onclick="boolSearch('linkedin')" type="button" class="input_boolean" >Search</button>
+
+</td>
+</td>
+</tr>
+
+
+</tbody>
 </table>
-</form>
 
+</form><div class="fusion-clearfix"></div>
 
-<form>
-
-<p id="opt_buttons" align="center"></p>
-
-<script type="text/javascript" src="Operators.js" ></script>
-<script type="text/javascript">add_operators('opt_buttons'); </script>
-</form>
-<!-- Start of Tabs window -->
-<main class="o-main">
-  <div class="o-container">
-
-    <div class="o-section">
-<div id="tabs" class="c-tabs no-js">
-        <div class="c-tabs-nav">
-          <a href="#" class="c-tabs-nav__link is-active" id="tab1_title">
-            <i class="fa fa-home"></i>
-            <span>Tab1</span>
-          </a>
-          <a href="#" class="c-tabs-nav__link" id="tab2_title">
-            <i class="fa fa-book"></i>
-            <span>Tab2</span>
-          </a>
-          <a href="#" class="c-tabs-nav__link" id="tab3_title">
-            <i class="fa fa-heart"></i>
-            <span>Tab3</span>
-          </a>
-          <a href="#" class="c-tabs-nav__link" id="tab4_title">
-            <i class="fa fa-calendar"></i>
-            <span>Tab4</span>
-          </a>
-          <a href="#" class="c-tabs-nav__link" id="tab5_title">
-            <i class="fa fa-cog"></i>
-            <span>LinkedIn</span>
-          </a>
-        </div>
-
-        <div class="c-tab is-active">
-         <div class="c-tab__content">
-           <form action="#" onsubmit="handle(event, 'input1', 'tab1_body', 'tab1_title')">
-               <table cellspacing="2" cellpadding="3" width="90%" align="center">
-
-                 <colgroup>
-                  <col span="1" style="width: 75%;">
-                  <col span="1" style="width: 15%;">
-               </colgroup>
-
-               <tbody><tr>
-               <td class="npb"><label for="what" id="what_label_top" aria-hidden="true">search word</label></td>
-               </tr>
-
-               <tr>
-               <td class="npl epr"><span class="inwrap"><input class="input_text" type="search"  maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input1" ></span><div style="width:250px"><!-- --></div></td>
-               <td class="npl" style="width:1px" ><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input1', 'tab1_body', 'tab1_title')" type="button" class="input_submit" >GO</button></span></span></td>
-               </tr>
-
-               </tr>
-
-
-               </tbody></table>
-
-           </table>
-           </form>
-
-           <p id="tab1_body"></p>
-
-           </script>
-
-         </div>
-       </div>
-       <div class="c-tab">
+			</div>
+		</div><div  class="fusion-layout-column fusion_builder_column fusion_builder_column_1_2  fusion-one-half fusion-column-last 1_2"  style='margin-top:0px;margin-bottom:20px;width:50%;width:calc(50% - ( ( 4% ) * 0.5 ) );'>
+			<div class="fusion-column-wrapper" style="background-position:left top;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;"  data-bg-url="">
+				<div class="c-tab">
          <div class="c-tab__content">
 
-           <form action="#" onsubmit="handle(event, 'input2', 'tab2_body', 'tab2_title')">
-               <table cellspacing="2" cellpadding="3" width="90%" align="center">
+<form action="#" onsubmit="handle(event, 'input_word', 'results_body')">
 
-                 <colgroup>
-                  <col span="1" style="width: 75%;">
-                  <col span="1" style="width: 15%;">
-               </colgroup>
+<table cellspacing="2" cellpadding="3" width="90%" align="center">
 
-               <tbody><tr>
-               <td class="npb"><label for="what" id="what_label_top" aria-hidden="true">search word</label></td>
-               </tr>
+<colgroup>
+	<col span="1" style="width: 75%;">
+    <col span="1" style="width: 15%;">
+</colgroup>
 
-               <tr>
-               <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input2"></span><div style="width:250px"><!-- --></div></td>
-               <td class="npl" style="width:1px" ><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input2', 'tab2_body', 'tab2_title')" type="button" class="input_submit" >GO</button></span></span></td>
-               </tr>
+<tbody>
+<tr>
+<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">search word</label></td>
+</tr>
 
-               </tr>
+<tr>
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input_word"></span>
+															<div style="width:250px">
+																<!-- -->
+														</td>
 
+														<td class="npl" style="width:1px"><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input_word', 'results_body')" type="button" class="input_submit" >GO</button></span></span>
+														</td>
+													</tr>
+													</tr>
 
-               </tbody></table>
+												</tbody>
+											</table>
 
-           </table>
-           </form>
-
-           <p id="tab2_body"></p>
-
-
-         </div>
-       </div>
-       <div class="c-tab">
-         <div class="c-tab__content">
-           <form action="#" onsubmit="handle(event, 'input3', 'tab3_body', 'tab3_title')">
-               <table cellspacing="2" cellpadding="3" width="90%" align="center">
-
-                 <colgroup>
-                  <col span="1" style="width: 75%;">
-                  <col span="1" style="width: 15%;">
-               </colgroup>
-
-               <tbody><tr>
-               <td class="npb"><label for="what" id="what_label_top" aria-hidden="true">search word</label></td>
-               </tr>
-
-               <tr>
-               <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input3"></span><div style="width:250px"><!-- --></div></td>
-               <td class="npl" style="width:1px" ><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input3', 'tab3_body', 'tab3_title')" type="button" class="input_submit" >GO</button></span></span></td>
-               </tr>
-
-               </tr>
-
-
-               </tbody></table>
-
-           </table>
-           </form>
-
-           <p id="tab3_body"></p>
-
-
-
-         </div>
-       </div>
-       <div class="c-tab">
-         <div class="c-tab__content">
-           <form action="#" onsubmit="handle(event, 'input4', 'tab4_body', 'tab4_title')">
-               <table cellspacing="2" cellpadding="3" width="90%" align="center">
-
-                 <colgroup>
-                  <col span="1" style="width: 75%;">
-                  <col span="1" style="width: 15%;">
-               </colgroup>
-
-               <tbody><tr>
-               <td class="npb"><label for="what" id="what_label_top" aria-hidden="true">search word</label></td>
-               </tr>
-
-               <tr>
-               <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input4"></span><div style="width:250px"><!-- --></div></td>
-               <td class="npl" style="width:1px" ><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input4', 'tab4_body', 'tab4_title')" type="button" class="input_submit" >GO</button></span></span></td>
-               </tr>
-
-               </tr>
-
-
-               </tbody></table>
-
-           </table>
-           </form>
-           <p id="tab4_body"></p>
-         </div>
-       </div>
-       <div class="c-tab">
-         <div class="c-tab__content">
-           <form>
-
-             <table cellspacing="2" cellpadding="3" width="90%" align="center">
-
-               <colgroup>
-                <col span="1" style="width: 75%;">
-                <col span="1" style="width: 15%;">
-             </colgroup>
-
-             <tbody>
-
-               <tr>
-               <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="LinkedIn Geographic Area" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="geoarea"></span></td>
-               <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Code" size="10" aria-labelledby="where_label_top hidden_colon where_label_bot" name="l" autocomplete="off" id="geocode"></td>
-               </tr>
-               </tbody>
-             </table>
-
-           </form>
-
-           <form action="#" onsubmit="handle(event, 'input5', 'tab5_body', 'tab5_title')">
-               <table cellspacing="2" cellpadding="3" width="90%" align="center">
-
-                 <colgroup>
-                  <col span="1" style="width: 75%;">
-                  <col span="1" style="width: 15%;">
-               </colgroup>
-
-               <tbody>
-
-
-               <tr>
-               <td class="npb"><label for="what" id="what_label_top" aria-hidden="true">search word</label></td>
-               </tr>
-
-
-               <tr>
-               <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input5"></span><div style="width:250px"><!-- --></div></td>
-               <td class="npl" style="width:1px" ><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input5', 'tab5_body', 'tab5_title')" type="button" class="input_submit" >GO</button></span></span></td>
-               </tr>
+											</table>
+										</form>
+										<p id="results_body"></p>
+										<p style="text-align:center;"><img id="hubImage" src=".\assets\talent_hub1.png" style="visibility:visible"></img></p>
 
 
 
 
-               </tbody></table>
+										</div>
+									</div>
+									<div class="fusion-clearfix"></div>
 
-           </table>
-           </form>
-           <p id="tab5_body"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-         </div>
-       </div>
+	</div>
+	<!-- fusion-row -->
+	</div>
+	<!-- #main -->
 
 
-     </div>
-   </div>
 
- <div class="o-section">
-   <div id="github-icons"></div>
- </div>
-</div>
-</main>
 
-<script>
-    function openTab(website){
-      var boolsearch = document.getElementById("what").value;
-      var loc = document.getElementById("where").value;
-      var geocode = document.getElementById("where3").value;
-      openSearch(website, boolsearch, loc, geocode);
 
-    }
+	<div class="fusion-footer">
+
+
+	</div>
+	<!-- fusion-footer -->
+	</div>
+	<!-- wrapper -->
+
+
+	<script>
+	    function boolSearch(website){
+				//Get all the values from the search fields and pass it to the search function
+	      var bool1 = document.getElementById("bool1").value;
+				var bool2 = document.getElementById("bool2").value;
+				var bool3 = document.getElementById("bool3").value;
+				var bool4 = document.getElementById("bool4").value;
+				var bool_not = document.getElementById("bool_not").value;
+				var title = document.getElementById("title").value;
+				var company = document.getElementById("company").value;
+				var geoarea = document.getElementById("geoarea").value;
+
+				//Geocode does not reset when Geoarea resets so manually reset Geocode to ""
+				if(geoarea){
+					var geocode = document.getElementById("geocode").value;
+				} else {
+					var geocode = "";
+				}
+
+
+	      openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geocode);
+
+	    }
+
+	</script>
+
+	<!-- Function to handle enter key event in search box's -->
+	<script>
+	    function handle(e, input1, results_body){
+	        e.preventDefault(); // Otherwise the form will be submitted
+	        getWords(input1, results_body);
+
+	    }
+	</script>
+
+	<!-- Calls jquery $.get() in ConnectJson.js to get keywords -->
+	<script>
+	function getWords(input1, results_body){
+	  var search_word = document.getElementById(input1).value;
+		document.getElementById("hubImage").style.visibility = 'hidden';
+	  //document.getElementById(tab_title).innerHTML = search_word;
+	  testBox(search_word, results_body);
+	}
+	</script>
+
+  <!-- Toggles the radio button to set focus on boolean field that has been clicked -->
+	<script>
+	function setBoolFocus(radio_button){
+		document.getElementById(radio_button).checked = true;
+	}
+	</script>
 
 </script>
 
-<!-- Function to handle enter key event in search box's -->
-<script>
-    function handle(e, input1, tab1_body, tab_title){
-        e.preventDefault(); // Otherwise the form will be submitted
-        getWords(input1, tab1_body, tab_title);
-
-    }
-</script>
-
-<!-- Calls jquery $.get() in ConnectJson.js to get keywords -->
-<script>
-function getWords(input1, tab1_body, tab_title){
-  var search_word = document.getElementById(input1).value;
-  document.getElementById(tab_title).innerHTML = search_word;
-  testBox(search_word, tab1_body);
-}
-</script>
-
-<!-- Calls Tabs.js to build the Tabbed view/window -->
-<script src="Tabs.js"></script>
-<script>
-  var myTabs = tabs({
-    el: '#tabs',
-    tabNavigationLinks: '.c-tabs-nav__link',
-    tabContentContainers: '.c-tab'
-  });
-  myTabs.init();
-</script>
 </body>
+
 </html>
