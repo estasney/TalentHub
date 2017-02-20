@@ -41,7 +41,20 @@
 </script>
 
 <script type="text/javascript">
+	function split(val) {
+		return val.split(/\s*OR\s*/);
+		//return val.split(/,\s*/);
+	}
+
+	function extractLast(term) {
+		return split(term).pop();
+	}
+
 	$(function() {
+
+		//Stores the Geocodes as an array of codes to be processed later
+
+		var geo_array = [];
 		var getData = function(request, response) {
 			jQuery_1.getJSON(
 
@@ -53,14 +66,35 @@
 							value: item.code
 						}
 					});
-					response(jQuery_1.ui.autocomplete.filter(array, request.term));
+					response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
 				});
 		};
 
 		var selectItem = function(event, ui) {
 
-			$("#geoarea").val(ui.item.label);
-			$("#geocode").val(ui.item.value);
+			var areas = split(this.value);
+			// remove the current input
+			areas.pop();
+			// add the selected item
+			var geo = '"' + ui.item.label + '"';
+			areas.push(geo);
+			// add placeholder to get the comma-and-space at the end
+			areas.push("");
+
+			this.value = areas.join(" OR ");
+
+
+			//$("#geoarea").val(ui.item.label);
+			//var codes = ui.item.value;
+			//if (codes) {
+				//$("#geocode").val(codes);
+			//} else {
+				//$("#geocode").val(ui.item.value);
+				geo_array.push(ui.item.value);
+				$("#company").val(geo_array.join(" OR "));
+				//$("#company").val(ui.item.value);
+			//}
+
 			return false;
 		}
 
@@ -68,6 +102,10 @@
 			source: getData,
 			select: selectItem,
 			minLength: 2,
+			focus: function() {
+				// prevent value inserted on focus
+				return false;
+			},
 		});
 
 		//Job Titles Autocomplete
@@ -82,13 +120,22 @@
 							value: item.value
 						}
 					});
-					response(jQuery_1.ui.autocomplete.filter(array, request.term));
+					response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
 				});
 		};
 
 		var selectTitle = function(event, ui) {
+			var terms = split(this.value);
+			// remove the current input
+			terms.pop();
+			// add the selected item
+			var title = '"' + ui.item.value + '"';
+			terms.push(title);
+			// add placeholder to get the comma-and-space at the end
+			terms.push("");
 
-			$("#title").val(ui.item.label);
+			this.value = terms.join(" OR ");
+
 			return false;
 		}
 
@@ -96,11 +143,42 @@
 			source: getTitle,
 			select: selectTitle,
 			minLength: 2,
+			focus: function() {
+				// prevent value inserted on focus
+				return false;
+			},
 		});
 	});
 </script>
 
 <body>
+
+	<table cellspacing="2" cellpadding="3" width="100%" align="center">
+
+		<colgroup>
+			<col style="width: 6%;">
+			<col span="2" style="width: 89%;">
+			<col style="width: 5%;">
+		</colgroup>
+
+		<tbody>
+			<tr>
+				<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
+				<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">boolean</label></td>
+
+			</tr>
+
+			<tr>
+
+				<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+				<td class="npl epr"><span class="inwrap"><input class="input_text_main" type="search" maxlength="512" onclick="setBoolFocus('radio1')" onkeypress="handle_bool(event, 'bool1', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool1"></td>
+		<td><input type="radio" name="input_radio" class="bool_radio" value="bool1" checked="checked" id="radio1"></td>
+
+		</tr>
+
+
+		</tbody>
+		</table>
 
 	<!-- <body background=".\assets\background_grey.png"> -->
 		<div id="main" class="clearfix width-100" style="padding-left:5px;padding-right:5px">
@@ -117,6 +195,7 @@
 										<div class="fusion-column-wrapper" style="background-position:left top;background-repeat:no-repeat;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;" data-bg-url="">
 											<form action="#">
 
+
 												<table cellspacing="2" cellpadding="3" width="100%" align="center">
 
 													<colgroup>
@@ -130,10 +209,10 @@
 
 														<tr>
 															<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
-															<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">boolean</label></td>
+															<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">options</label></td>
 
 														</tr>
-
+<!--
 														<tr>
 
 															<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
@@ -142,7 +221,7 @@
 <td><input type="radio" name="input_radio" class="bool_radio" value="bool1" checked="checked" id="radio1"></td>
 
 </tr>
-
+-->
 <tr>
 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
 
@@ -239,140 +318,172 @@
 
 <tbody>
 <tr>
-<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">search word</label></td>
+<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">keyword</label></td>
 </tr>
 
 <tr>
 <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input_word"></span>
-																<div style="width:250px">
-																	<!-- -->
-															</td>
+					<div style="width:250px">
+						<!-- -->
+				</td>
 
-															<td class="npl" style="width:1px"><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input_word', 'results_body')" type="button" class="input_submit" >GO</button></span></span>
-															</td>
-														</tr>
-														</tr>
+				<td class="npl" style="width:1px"><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input_word', 'results_body')" type="button" class="input_submit" >GO</button></span></span>
+				</td>
+			</tr>
+			</tr>
 
-													</tbody>
-												</table>
+		</tbody>
+	</table>
 
-												</table>
-											</form>
-											<p id="results_body"></p>
-											<p style="text-align:center;"><img id="hubImage" src=".\assets\talent_hub1.png" style="visibility:visible"></img>
-											</p>
-
-
-
-
-											</div>
-										</div>
-										<div class="fusion-clearfix"></div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<!-- fusion-row -->
-		</div>
-		<!-- #main -->
+	</table>
+	</form>
+	<p id="results_body"></p>
+	<p style="text-align:center;"><img id="hubImage" src=".\assets\talent_hub1.png" style="visibility:visible"></img>
+	</p>
 
 
 
 
+	</div>
+	</div>
+	<div class="fusion-clearfix"></div>
 
-		<div class="fusion-footer">
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
 
-
-		</div>
-		<!-- fusion-footer -->
-		</div>
-		<!-- wrapper -->
-
-
-		<script>
-			function boolSearch(website) {
-				//Get all the values from the search fields and pass it to the search function
-				var bool1 = document.getElementById("bool1").value;
-				var bool2 = document.getElementById("bool2").value;
-				var bool3 = document.getElementById("bool3").value;
-				var bool4 = document.getElementById("bool4").value;
-				var bool_not = document.getElementById("bool_not").value;
-				var title = document.getElementById("title").value;
-				var company = document.getElementById("company").value;
-				var geoarea = document.getElementById("geoarea").value;
-
-				//Geocode does not reset when Geoarea resets so manually reset Geocode to ""
-				if (geoarea) {
-					var geocode = document.getElementById("geocode").value;
-				} else {
-					var geocode = "";
-				}
+	</div>
+	<!-- fusion-row -->
+	</div>
+	<!-- #main -->
 
 
-				openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geocode);
 
+
+
+	<div class="fusion-footer">
+
+
+	</div>
+	<!-- fusion-footer -->
+	</div>
+	<!-- wrapper -->
+	<script>
+		$("#bool1").css({
+			"box-shadow": "0 0 5px rgba(81, 203, 238, 1)",
+			"border": "5px solid rgba(81, 203, 238, 1)"
+		});
+	</script>
+
+	<script>
+		function boolSearch(website) {
+			//Get all the values from the search fields and pass it to the search function
+			var bool1 = document.getElementById("bool1").value;
+			var bool2 = document.getElementById("bool2").value;
+			var bool3 = document.getElementById("bool3").value;
+			var bool4 = document.getElementById("bool4").value;
+			var bool_not = document.getElementById("bool_not").value;
+			var title = document.getElementById("title").value;
+			var company = document.getElementById("company").value;
+			var geoarea = document.getElementById("geoarea").value;
+
+			//Geocode does not reset when Geoarea resets so manually reset Geocode to ""
+			if (geoarea) {
+				var geocode = document.getElementById("geocode").value;
+			} else {
+				var geocode = "";
 			}
-		</script>
 
-		<!-- Function to handle enter key event in search box's -->
-		<script>
-			function handle(e, input1, results_body) {
+
+			openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geocode);
+
+		}
+	</script>
+
+	<!-- Function to handle enter key event in search box's -->
+	<script>
+		function handle(e, input1, results_body) {
+			e.preventDefault(); // Otherwise the form will be submitted
+			getWords(input1, results_body);
+		}
+	</script>
+
+	<!-- Function to handle enter key event in Boolean string box's -->
+	<script>
+		function handle_bool(e, input1, results_body) {
+			if (e.keyCode == 13) {
 				e.preventDefault(); // Otherwise the form will be submitted
-				getWords(input1, results_body);
-			}
-		</script>
-
-		<!-- Function to handle enter key event in Boolean string box's -->
-		<script>
-			function handle_bool(e, input1, results_body) {
-				if (e.keyCode == 13) {
-					e.preventDefault(); // Otherwise the form will be submitted
-					var bool_word = document.getElementById(input1).value;
-					//If there is a quote("") inside the box then do nothing because only first word or phrase can be used
-					if (!bool_word.includes('"')) {
-						//add the value from boolean box to search word box
-						document.getElementById("input_word").value = bool_word;
-						getWords(input1, results_body);
-						document.getElementById(input1).value = '"' + bool_word + '"';
-					}
+				var bool_word = document.getElementById(input1).value;
+				//If there is a quote("") inside the box then do nothing because only first word or phrase can be used
+				if (!bool_word.includes('"')) {
+					//add the value from boolean box to search word box
+					document.getElementById("input_word").value = bool_word;
+					getWords(input1, results_body);
+					document.getElementById(input1).value = '"' + bool_word + '"';
 				}
-
 			}
-		</script>
 
-		<!-- Calls jquery $.get() in ConnectJson.js to get keywords -->
-		<script>
-			function getWords(input1, results_body) {
-				var search_word = document.getElementById(input1).value;
-				document.getElementById("hubImage").style.visibility = 'hidden';
+		}
+	</script>
 
-				testBox(search_word, results_body);
+	<!-- Calls jquery $.get() in ConnectJson.js to get keywords -->
+	<script>
+		function getWords(input1, results_body) {
+			var search_word = document.getElementById(input1).value;
+			document.getElementById("hubImage").style.visibility = 'hidden';
+
+			testBox(search_word, results_body);
+		}
+	</script>
+
+	<!-- Toggles the radio button to set focus on boolean field that has been clicked -->
+	<script>
+		function setBoolFocus(radio_button) {
+			//If statement handles the main radio button associated with the main bool string because it is out of scope
+			if (radio_button != 'radio1') {
+				document.getElementById('radio1').checked = false;
+			} else {
+				document.getElementById('radio2').checked = false;
+				document.getElementById('radio3').checked = false;
+				document.getElementById('radio4').checked = false;
+				document.getElementById('bool_radio').checked = false;
 			}
-		</script>
+			document.getElementById(radio_button).checked = true;
+			var box = document.getElementById(radio_button).value;
 
-		<!-- Toggles the radio button to set focus on boolean field that has been clicked -->
-		<script>
-			function setBoolFocus(radio_button) {
-				document.getElementById(radio_button).checked = true;
-				var box = document.getElementById(radio_button).value;
+			$("#bool1").css({
+				"box-shadow": "",
+				"border": ""
+			});
+			$("#bool2").css({
+				"box-shadow": "",
+				"border": ""
+			});
+			$("#bool3").css({
+				"box-shadow": "",
+				"border": ""
+			});
+			$("#bool4").css({
+				"box-shadow": "",
+				"border": ""
+			});
+			$("#bool_not").css({
+				"box-shadow": "",
+				"border": ""
+			});
+			$('#' + box).css({
+				"box-shadow": "0 0 5px rgba(81, 203, 238, 1)",
+				"border": "5px solid rgba(81, 203, 238, 1)"
+			});
 
-				$("#bool1").css({"box-shadow": "", "border": ""});
-				$("#bool2").css({"box-shadow": "", "border": ""});
-				$("#bool3").css({"box-shadow": "", "border": ""});
-				$("#bool4").css({"box-shadow": "", "border": ""});
-				$("#bool_not").css({"box-shadow": "", "border": ""});
-				$('#'+ box).css({"box-shadow": "0 0 5px rgba(81, 203, 238, 1)", "border": "5px solid rgba(81, 203, 238, 1)"});
-
-			}
-		</script>
+		}
+	</script>
 
 
-	</body>
+</body>
 
 </html>
