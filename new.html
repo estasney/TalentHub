@@ -3,6 +3,7 @@
 
 <head>
 
+
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="ConnectJson.js"></script>
 	<script type="text/javascript" src="Boolsearch.js"></script>
@@ -41,6 +42,9 @@
 </script>
 
 <script type="text/javascript">
+
+var geo_array = [];
+
 	function split(val) {
 		return val.split(/\s*OR\s*/);
 		//return val.split(/,\s*/);
@@ -50,11 +54,16 @@
 		return split(term).pop();
 	}
 
+	function get_geoArray () {
+		return geo_array;
+	}
+
 	$(function() {
 
 		//Stores the Geocodes as an array of codes to be processed later
-
-		var geo_array = [];
+		//var geo_array = [];
+		//Stores the Job titles as an array for futher processing
+		//var titles_array = [];
 		var getData = function(request, response) {
 			jQuery_1.getJSON(
 
@@ -81,18 +90,18 @@
 			// add placeholder to get the comma-and-space at the end
 			areas.push("");
 
-			this.value = areas.join(" OR ");
+			this.value = areas.join(" OR ").slice(0, -4);
 
 
-			//$("#geoarea").val(ui.item.label);
-			//var codes = ui.item.value;
-			//if (codes) {
-				//$("#geocode").val(codes);
-			//} else {
-				//$("#geocode").val(ui.item.value);
-				geo_array.push(ui.item.value);
-				$("#company").val(geo_array.join(" OR "));
-				//$("#company").val(ui.item.value);
+
+				if (areas.length == 2){
+					geo_array = [];
+					geo_array.push(ui.item.value);
+				} else {
+					geo_array.push(ui.item.value);
+				}
+				//$("#company").val(geo_array.join(" OR "));
+
 			//}
 
 			return false;
@@ -133,8 +142,18 @@
 			terms.push(title);
 			// add placeholder to get the comma-and-space at the end
 			terms.push("");
+// combines the values but removes the appended " OR "
+			this.value = terms.join(" OR ").slice(0, -4);
 
-			this.value = terms.join(" OR ");
+			//if (terms.length == 2){
+				//titles_array = [];
+				//titles_array.push(ui.item.value);
+			//} else {
+				//titles_array.push(ui.item.value);
+			//}
+
+			//$("#company").val(titles_array.join(" OR "));
+
 
 			return false;
 		}
@@ -398,8 +417,9 @@
 				var geocode = "";
 			}
 
+			var geoarray = get_geoArray();
 
-			openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geocode);
+			openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geoarray);
 
 		}
 	</script>

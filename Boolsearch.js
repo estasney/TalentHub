@@ -1,4 +1,4 @@
-function openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geocode) {
+function openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, company, geo_array) {
 
     var search = "";
     var search_opt = "";
@@ -52,11 +52,11 @@ function openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, compan
 
     //Check for optional search criteria Job Title and Company
     if (title) {
-        var str_title = title.replace(/ /g, '%20');
+        var str_title = title.replace(/ /g, '%20').replace(/"/g, '%22');
         search_opt = "&title=" + str_title;
         if (company) {
             //Job Title and Company is present
-            var str_company = company.replace(/ /g, '%20');
+            var str_company = company.replace(/ /g, '%20').replace(/"/g, '%22');
             search_opt = search_opt + "&company=" + str_company + "&openAdvancedForm=true&titleScope=CP&companyScope=CP&locationType=Y";
             search = search + search_opt;
         } else {
@@ -66,7 +66,7 @@ function openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, compan
         }
     } else if (company) {
         //Only Company is present
-        var str_company = company.replace(/ /g, '%20');
+        var str_company = company.replace(/ /g, '%20').replace(/"/g, '%22');
         search_opt = "&company=" + str_company + "&openAdvancedForm=true&companyScope=CP&locationType=Y";
         search = search + search_opt;
     } else {
@@ -78,19 +78,41 @@ function openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, compan
     //str = str.replace(/ /g, '%20').replace(/"/g, '%22').replace(/:/g, '%3A').replace(/\(/g, '%28').replace(/\)/g, '%29');
 
     //Process the geocode
-    var code = geocode.split('.');
 
-    if (code.length == 4) {
-        var geo_area = code[1];
-        var geo_num = code[3];
-    } else {
-        var geo_area = code[1];
-        var geo_num = '0';
+    var array_size = geo_array.length;
+    var geo_string = "";
+
+    for (i=0; i < array_size; i++){
+      var code = geo_array[i].split('.');
+      if (code.length == 4) {
+          var geo_area = code[1];
+          var geo_num = code[3];
+          geo_string = geo_string + geo_area + "%3A" + geo_num + ',';
+      } else {
+          var geo_area = code[1];
+          var geo_num = '0';
+          geo_string = geo_string + geo_area + "%3A" + geo_num + ',';
+      }
+
     }
 
+    //var code = geocode.split('.');
+
+    //if (code.length == 4) {
+        //var geo_area = code[1];
+        //var geo_num = code[3];
+    //} else {
+        //var geo_area = code[1];
+        //var geo_num = '0';
+    //}
+
     //Append the Geographic code if present
-    if (geocode) {
-        var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + search + "&f_G=" + geo_area + "%3A" + geo_num + "&rsid=2132689341487064709807&orig=ADVS";
+    if (array_size >= 1) {
+      //remove the trailing comma
+      geo_string = geo_string.slice(0, -1);
+        //var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + search + "&f_G=" + geo_area + "%3A" + geo_num + "&rsid=2132689341487064709807&orig=ADVS";
+        var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + search + "&f_G=" + geo_string + "&rsid=2132689341487064709807&orig=ADVS";
+
     } else {
         var linkedin_url = "https://www.linkedin.com/vsearch/p?keywords=" + search + "&rsid=2132689341487321114500&orig=ADVS";
     }
