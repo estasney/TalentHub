@@ -131,7 +131,68 @@ function openSearch(website, bool1, bool2, bool3, bool4, bool_not, title, compan
 
 }
 
+//Generates the boolean string by combining the main boolean and the optional operators.
+function generateBoolean(generate, bool1, bool2, bool3, bool4, bool_not) {
 
+  var boolString = "";
+
+  //Construct the boolean string with the AND operators
+  switch (generate) {
+
+      case 'generate':
+          if (bool1) {
+            if (bool1[0] == "(") {
+              str_bool1 = bool1;
+            } else {
+              var str_bool1 = bool1.trim();
+              str_bool1 = "(" + str_bool1 + ")";
+            }
+          } else {
+              break;
+          }
+
+          if (bool2) {
+              var str_bool2 = bool2.trim();
+              str_bool2 = "(" + str_bool2 + ")";
+          } else {
+              boolString = str_bool1;
+              break;
+          }
+
+          if (bool3) {
+              var str_bool3 = bool3.trim();
+              str_bool3 = "(" + str_bool3 + ")";
+          } else {
+              boolString = str_bool1 + " AND " + str_bool2;
+              break;
+          }
+
+          if (bool4) {
+              var str_bool4 = bool4.trim();
+              str_bool4 = "(" + str_bool4 + ")";
+              boolString = str_bool1 + " AND " + str_bool2 + " AND " + str_bool3 + " AND " + str_bool4;
+              break;
+          } else {
+              boolString = str_bool1 + " AND " + str_bool2 + " AND " + str_bool3;
+              break;
+          }
+  } //End switch
+
+  //Append the NOT to the boolean string if present
+  if (bool_not) {
+      var str_not = bool_not.trim();
+      str_not = "(" + str_not + ")";
+      boolString = boolString + " NOT " + str_not;
+  }
+
+  //Update the Boolean textarea with the generated boolean string
+  document.getElementById('bool1').value = boolString;
+  document.getElementById("bool2").value = "";
+  document.getElementById("bool3").value = "";
+  document.getElementById("bool4").value = "";
+  document.getElementById("bool_not").value = "";
+
+}
 
 
 //Clear and resets all Boolean search box to empty
@@ -153,5 +214,6 @@ function clearBoolean() {
     $("#bool4").css({"box-shadow": "", "border": ""});
     $("#bool_not").css({"box-shadow": "", "border": ""});
 
-    $("#bool1").css({"box-shadow": "0 0 5px rgba(81, 203, 238, 1)", "border": "5px solid rgba(81, 203, 238, 1)"});
+    $("#bool1").css({"box-shadow": "0 0 5px rgba(255, 102, 0, 1)", "border": "5px solid rgba(255, 102, 0, 1)"});
+    
 }

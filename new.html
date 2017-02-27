@@ -11,8 +11,8 @@
 				<table cellspacing="2" cellpadding="3" width="100%" align="center">
 
 					<colgroup>
-						<col style="width: 6%;">
-						<col span="2" style="width: 89%;">
+						<col style="width: 10%;">
+						<col span="2" style="width: 85%;">
 						<col style="width: 5%;">
 					</colgroup>
 
@@ -26,7 +26,10 @@
 						<tr>
 
 							<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
-							<td class="npl epr"><span class="inwrap"><input class="input_text_main" type="search" placeholder="Boolean String" maxlength="512" onclick="setBoolFocus('radio1')" onkeypress="handle_bool(event, 'bool1', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool1"></td>
+							<td class="npl epr"><span class="inwrap"><textarea class="input_text_main" type="search" placeholder="Boolean String" onclick="setBoolFocus('radio1')" onkeypress="handle_bool(event, 'bool1', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool1"></textarea></td>
+
+	<!--						<td class="npl epr"><span class="inwrap"><input class="input_text_main" type="search" placeholder="Boolean String" maxlength="512" onclick="setBoolFocus('radio1')" onkeypress="handle_bool(event, 'bool1', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool1"></td>
+-->
 	 <td><input type="radio" name="input_radio" class="bool_radio" value="bool1" checked="checked" id="radio1"></td>
 
 	 </tr>
@@ -223,7 +226,7 @@ var geo_array = [];
 
 														<tr>
 															<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
-															<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">options</label></td>
+															<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Options</label></td>
 
 														</tr>
 <!--
@@ -265,19 +268,19 @@ var geo_array = [];
 </tr>
 
 <tr>
-<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">Company</label></td>
 
 <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="company"></td>
 </tr>
 
 <tr>
-<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">JobTitle</label></td>
 
 <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="title"></td>
 </tr>
 
 <tr>
-<td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">GeoArea</label></td>
 
 <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Geographic Area" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="geoarea"><input type="hidden" id="geocode"></td>
 </tr>
@@ -303,7 +306,8 @@ var geo_array = [];
 <button id="fj" onclick="clearBoolean()" type="button" class="input_boolean" >Clear</button></td>
 
 <td class="npl" style="width:1px" align="center">
-<button id="fj" onclick="boolSearch('linkedin')" type="button" class="input_boolean" >Search</button>
+<button id="fj" onclick="genBoolean('generate')" type="button" class="input_boolean" >Generate</button>
+<!-- <button id="fj" onclick="boolSearch('linkedin')" type="button" class="input_boolean" >Search</button> -->
 
 </td>
 </td>
@@ -332,7 +336,7 @@ var geo_array = [];
 
 <tbody>
 <tr>
-<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">keyword</label></td>
+<td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Keyword</label></td>
 </tr>
 
 <tr>
@@ -393,6 +397,23 @@ var geo_array = [];
 			});
 		</script>
 
+<!-- Generates the boolean string and update the main boolean textarea with the generated boolean -->
+		<script>
+			function genBoolean(generate) {
+				//Get all the values from the search fields and pass it to the search function
+				var bool1 = document.getElementById("bool1").value;
+				var bool2 = document.getElementById("bool2").value;
+				var bool3 = document.getElementById("bool3").value;
+				var bool4 = document.getElementById("bool4").value;
+				var bool_not = document.getElementById("bool_not").value;
+
+				generateBoolean(generate, bool1, bool2, bool3, bool4, bool_not);
+
+			}
+		</script>
+
+
+<!-- function genBool() will replace this function after update -->
 		<script>
 			function boolSearch(website) {
 				//Get all the values from the search fields and pass it to the search function
