@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any
+    other head content must come *after* these tags -->
+    <title>Boolean Search Generator</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/mystyles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <!-- Header with main Boolean textarea -->
+    <header class="jumbotron">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Boolean Search Generator</h1>
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" rows="3" id="bool1"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Content -->
+
+    <div class="container-fluid" background-color="orange">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <form action="#">
+
+
+                    <table cellspacing="2" cellpadding="3" width="100%" align="center">
+
+                        <colgroup>
+                            <col style="width: 5%;">
+                            <col span="2" style="width: 90%;">
+                            <col style="width: 5%;">
+
+                        </colgroup>
+
+                        <tbody>
+
+                            <tr>
+                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
+                                <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Options</label></td>
+
+                            </tr>
+
+                            <tr>
+                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
+
+                                <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio2')" onkeypress="handle_bool(event, 'bool2', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool2"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool2" id="radio2"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio3')" onkeypress="handle_bool(event, 'bool3', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool3"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool3" id="radio3"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio4')" onkeypress="handle_bool(event, 'bool4', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool4"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool4" id="radio4"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">NOT</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('bool_radio')" onkeypress="handle_bool(event, 'bool_not', 'results_body')" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="bool_not"></td>
+<td><input type="radio" name="input_radio" class="bool_radio" value="bool_not" id="bool_radio"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">Company</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="company"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">JobTitle</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="title"></td>
+</tr>
+
+<tr>
+<td class="npb"><label for="where" id="where_label_top" aria-hidden="true">GeoArea</label></td>
+
+<td class="npl epr"><span class="inwrap"><input class="input_text" type="search" placeholder="Geographic Area" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="geoarea"><input type="hidden" id="geocode"></td>
+</tr>
+
+
+
+</tbody>
+</table>
+<br>
+<table cellspacing="2" cellpadding="3" width="100%" align="center">
+
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+
+</colgroup>
+
+<tbody>
+
+<tr>
+
+<td class="npl" style="width:1px" align="center">
+<button id="fj" onclick="clearBoolean()" type="button" class="input_boolean" >Clear</button></td>
+
+<td class="npl" style="width:1px" align="center">
+<button id="fj" onclick="genBoolean('generate')" type="button" class="input_boolean" >Generate</button>
+<!-- <button id="fj" onclick="boolSearch('linkedin')" type="button" class="input_boolean" >Search</button> -->
+
+</td>
+</td>
+</tr>
+
+
+</tbody>
+</table>
+
+</form>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+
+              <form action="#" onsubmit="handle(event, 'input_word', 'results_body')">
+
+              <table cellspacing="2" cellpadding="3" width="90%" align="center">
+
+              <colgroup>
+              	<col span="1" style="width: 75%;">
+                  <col span="1" style="width: 15%;">
+              </colgroup>
+
+              <tbody>
+              <tr>
+              <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Keyword</label></td>
+              </tr>
+
+              <tr>
+              <td class="npl epr"><span class="inwrap"><input class="input_text" type="search" maxlength="512" style="width:97%" aria-labelledby="what_label_top hidden_colon what_label_bot" name="q" autocomplete="off" id="input_word"></span>
+                                      <div style="width:250px">
+                                          <!-- -->
+                                  </td>
+
+                                  <td class="npl" style="width:1px"><span class="inwrapBorder" style="width:100%"><span class="inwrapBorderTop"><button id="fj" onclick="getWords('input_word', 'results_body')" type="button" class="input_submit" >GO</button></span></span>
+                                  </td>
+                              </tr>
+                              </tr>
+
+                          </tbody>
+                      </table>
+
+                      </table>
+                  </form>
+
+                  <p id="results_body"></p>
+                  <p style="text-align:center;"><img id="hubImage" src=".\assets\talent_hub1.png"></img>
+                  </p>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <div class="jumbotron" id="footer1">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>
