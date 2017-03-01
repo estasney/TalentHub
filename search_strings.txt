@@ -1,8 +1,0 @@
-https://www.linkedin.com/vsearch/p?keywords=(%22java%22%20OR%20%22javascript%22)%20AND%20(%22python%22%20OR%20%22script%22)%20NOT%20(%22ccnp%22)&title=software%20engineer&company=cisco&openAdvancedForm=true&titleScope=CP&companyScope=CP&locationType=Y&f_G=us%3A84&rsid=2132689341487321086482&orig=ADVS
-https://www.linkedin.com/vsearch/p?keywords=(%22java%22%20OR%20%22javascript%22)%20AND%20(%22python%22%20OR%20%22script%22)%20NOT%20(%22ccnp%22)&title=software%20engineer&company=cisco&openAdvancedForm=true&titleScope=CP&companyScope=CP&locationType=Y&rsid=2132689341487321114500&orig=ADVS
-https://www.linkedin.com/vsearch/p?keywords=(%22java%22%20OR%20%22javascript%22)%20AND%20(%22python%22%20OR%20%22script%22)%20NOT%20(%22ccnp%22)&openAdvancedForm=true&locationType=Y&rsid=2132689341487324964257&orig=ADVS
-
-https://www.linkedin.com/vsearch/p?keywords=java&openAdvancedForm=true&locationType=Y&f_G=us%3A84,us%3A732&rsid=2132689341487721471848&orig=ADVS
-
-//Job Titles OR Job Titles
-https://www.linkedin.com/vsearch/p?keywords=java&title=%22software%20engineer%22%20OR%20%22java%20developer%22&openAdvancedForm=true&titleScope=CP&locationType=Y&rsid=2132689341487733952015&orig=MDYS
