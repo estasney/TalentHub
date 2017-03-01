@@ -101,7 +101,7 @@
         jQuery_1("#geoarea").autocomplete({
             source: getData,
             select: selectItem,
-            minLength: 2,
+            minLength: 3,
             focus: function() {
                 // prevent value inserted on focus
                 return false;
@@ -144,7 +144,7 @@
                 jQuery_1("#company").autocomplete({
                     source: getCompany,
                     select: selectCompanies,
-                    minLength: 2,
+                    minLength: 3,
                     focus: function() {
                         // prevent value inserted on focus
                         return false;
@@ -155,7 +155,7 @@
         var getTitle = function(request, response) {
             jQuery_1.getJSON(
 
-                "https://ciscotalenthub.github.io/TalentHub//job_titles.json?callback=?" + request.term,
+                "https://ciscotalenthub.github.io/TalentHub//titles.json?callback=?" + request.term,
                 function(data) {
                     var array = $.map(data.titles, function(item) {
                         return {
@@ -186,7 +186,7 @@
         jQuery_1("#title").autocomplete({
             source: getTitle,
             select: selectTitle,
-            minLength: 2,
+            minLength: 3,
             focus: function() {
                 // prevent value inserted on focus
                 return false;
