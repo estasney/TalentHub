@@ -540,7 +540,9 @@
                 var geocode = "";
             }
 
-            var geoarray = get_geoArray();
+            var geoarray = [];
+            //Revisit this because jQuery autocomplete was replaced with typeahead
+            //var geoarray = get_geoArray();
 
             openSearch(website, bool1, title, company, geoarray);
 
