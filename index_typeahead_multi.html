@@ -13,6 +13,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/mystyles.css" rel="stylesheet">
+    <link href="css/typeahead-multiselect.min.css" rel="stylesheet">
 
     <!-- Javascript files -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -26,12 +27,21 @@
 
 <!-- jQuery UI Autocomple for Geographic Area.  Data retrieve from json file -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<!-- <link rel="stylesheet" href="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.css"> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script type="text/javascript">
     var jQuery_1 = $.noConflict(true);
 </script>
 
+<script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/typeahead.bundle.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.js"></script>
+
+
+
+<!--
 <script type="text/javascript">
     var geo_array = [];
 
@@ -197,6 +207,7 @@
     });
 </script>
 
+-->
 
 <body>
 
@@ -248,18 +259,18 @@
     <div class="container logo-container" id="logos">
         <div class="row">
 
-                <div class="col-xs-2 col-sm-1 col-sm-offset-3"><img src=".\assets\Avature.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\indeed.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\dice.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\Google.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\github.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\linkedin.png" onclick="boolSearch('linkedin')" class="img-responsive"></img>
-                </div>
+            <div class="col-xs-2 col-sm-1 col-sm-offset-3"><img src=".\assets\Avature.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\indeed.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\dice.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\Google.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\github.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\linkedin.png" onclick="boolSearch('linkedin')" class="img-responsive"></img>
+            </div>
 
         </div>
     </div>
@@ -320,13 +331,18 @@
                             <tr>
                                 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">Company</label></td>
 
-                                <td class="npl epr"><input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" name="q" autocomplete="off" id="company"></td>
+                                <td class="npl epr">
+                                  <div id="typeaheadmulti_company"><input class="typeahead" type="text" placeholder="Company" id="company"></div></td>
+                            <!--      <input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" name="q" autocomplete="off" id="company"></td> -->
                             </tr>
 
                             <tr>
                                 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">JobTitle</label></td>
 
-                                <td class="npl epr"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" name="q" autocomplete="off" id="title"></td>
+                                <td class="npl epr">
+                                  <div id="typeaheadmulti"><input class="typeahead" type="text" placeholder="Job Title" id="title"></div></td>
+                            <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" name="q" autocomplete="off" id="title"></td> -->
+
                             </tr>
 
                             <tr>
@@ -435,14 +451,52 @@
         </div>
 
     </div>
+    <!-- Company names typeahead autocomplete -->
+    <script type="text/javascript">
+        var language = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/companies.json'
 
+            //local: ["English", "Arabic", "Japanese"]
+        });
 
+        $('#typeaheadmulti_company .typeahead').typeaheadmulti({
+            hint: true,
+            highlight: true,
+            minLength: 2
+        }, {
+            name: 'language',
+            source: language,
+            limit: 20
+        });
+    </script>
 
+    <!-- Job Titles typeahead autocomplete -->
+    <script type="text/javascript">
+        var language = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/titles_ex.json'
+
+            //local: ["English", "Arabic", "Japanese"]
+        });
+
+        $('#typeaheadmulti .typeahead').typeaheadmulti({
+            hint: true,
+            highlight: true,
+            minLength: 2
+        }, {
+            name: 'language',
+            source: language,
+            limit: 20
+        });
+    </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
 
     <script>
         $("#bool1").css({

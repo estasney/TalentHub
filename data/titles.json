@@ -1,0 +1,292 @@
+{
+    "titles": [
+        {
+            "value": "Application Developer", 
+            "label": "Application Developer"
+        }, 
+        {
+            "value": "Application Support Analyst", 
+            "label": "Application Support Analyst"
+        }, 
+        {
+            "value": "Applications Engineer", 
+            "label": "Applications Engineer"
+        }, 
+        {
+            "value": "Associate Developer", 
+            "label": "Associate Developer"
+        }, 
+        {
+            "value": "Chief Technology Officer", 
+            "label": "Chief Technology Officer"
+        }, 
+        {
+            "value": "Chief Information Officer", 
+            "label": "Chief Information Officer"
+        }, 
+        {
+            "value": "Computer and Information Systems Manager", 
+            "label": "Computer and Information Systems Manager"
+        }, 
+        {
+            "value": "Computer Systems Manager", 
+            "label": "Computer Systems Manager"
+        }, 
+        {
+            "value": "Customer Support Administrator", 
+            "label": "Customer Support Administrator"
+        }, 
+        {
+            "value": "Customer Support Specialist", 
+            "label": "Customer Support Specialist"
+        }, 
+        {
+            "value": "Data Center Support Specialist", 
+            "label": "Data Center Support Specialist"
+        }, 
+        {
+            "value": "Data Quality Manager", 
+            "label": "Data Quality Manager"
+        }, 
+        {
+            "value": "Database Administrator", 
+            "label": "Database Administrator"
+        }, 
+        {
+            "value": "Desktop Support Manager", 
+            "label": "Desktop Support Manager"
+        }, 
+        {
+            "value": "Desktop Support Specialist", 
+            "label": "Desktop Support Specialist"
+        }, 
+        {
+            "value": "Developer", 
+            "label": "Developer"
+        }, 
+        {
+            "value": "Director of Technology", 
+            "label": "Director of Technology"
+        }, 
+        {
+            "value": "Front End Developer", 
+            "label": "Front End Developer"
+        }, 
+        {
+            "value": "Help Desk Specialist", 
+            "label": "Help Desk Specialist"
+        }, 
+        {
+            "value": "Help Desk Technician", 
+            "label": "Help Desk Technician"
+        }, 
+        {
+            "value": "Information Technology Coordinator", 
+            "label": "Information Technology Coordinator"
+        }, 
+        {
+            "value": "Information Technology Director", 
+            "label": "Information Technology Director"
+        }, 
+        {
+            "value": "Information Technology Manager", 
+            "label": "Information Technology Manager"
+        }, 
+        {
+            "value": "IT Support Manager", 
+            "label": "IT Support Manager"
+        }, 
+        {
+            "value": "IT Support Specialist", 
+            "label": "IT Support Specialist"
+        }, 
+        {
+            "value": "IT Systems Administrator", 
+            "label": "IT Systems Administrator"
+        }, 
+        {
+            "value": "Java Developer", 
+            "label": "Java Developer"
+        }, 
+        {
+            "value": "Junior Software Engineer", 
+            "label": "Junior Software Engineer"
+        }, 
+        {
+            "value": "Management Information Systems Director", 
+            "label": "Management Information Systems Director"
+        }, 
+        {
+            "value": ".NET Developer", 
+            "label": ".NET Developer"
+        }, 
+        {
+            "value": "Network Architect", 
+            "label": "Network Architect"
+        }, 
+        {
+            "value": "Network Engineer", 
+            "label": "Network Engineer"
+        }, 
+        {
+            "value": "Network Systems Administrator", 
+            "label": "Network Systems Administrator"
+        }, 
+        {
+            "value": "Programmer", 
+            "label": "Programmer"
+        }, 
+        {
+            "value": "Programmer Analyst", 
+            "label": "Programmer Analyst"
+        }, 
+        {
+            "value": "Security Specialist", 
+            "label": "Security Specialist"
+        }, 
+        {
+            "value": "Senior Applications Engineer", 
+            "label": "Senior Applications Engineer"
+        }, 
+        {
+            "value": "Senior Database Administrator", 
+            "label": "Senior Database Administrator"
+        }, 
+        {
+            "value": "Senior Network Architect", 
+            "label": "Senior Network Architect"
+        }, 
+        {
+            "value": "Senior Network Engineer", 
+            "label": "Senior Network Engineer"
+        }, 
+        {
+            "value": "Senior Network System Administrator", 
+            "label": "Senior Network System Administrator"
+        }, 
+        {
+            "value": "Senior Programmer", 
+            "label": "Senior Programmer"
+        }, 
+        {
+            "value": "Senior Programmer Analyst", 
+            "label": "Senior Programmer Analyst"
+        }, 
+        {
+            "value": "Senior Security Specialist", 
+            "label": "Senior Security Specialist"
+        }, 
+        {
+            "value": "Senior Software Engineer", 
+            "label": "Senior Software Engineer"
+        }, 
+        {
+            "value": "Senior Support Specialist", 
+            "label": "Senior Support Specialist"
+        }, 
+        {
+            "value": "Senior System Administrator", 
+            "label": "Senior System Administrator"
+        }, 
+        {
+            "value": "Senior System Analyst", 
+            "label": "Senior System Analyst"
+        }, 
+        {
+            "value": "Senior System Architect", 
+            "label": "Senior System Architect"
+        }, 
+        {
+            "value": "Senior System Designer", 
+            "label": "Senior System Designer"
+        }, 
+        {
+            "value": "Senior Systems Analyst", 
+            "label": "Senior Systems Analyst"
+        }, 
+        {
+            "value": "Senior Systems Software Engineer", 
+            "label": "Senior Systems Software Engineer"
+        }, 
+        {
+            "value": "Senior Web Administrator", 
+            "label": "Senior Web Administrator"
+        }, 
+        {
+            "value": "Senior Web Developer", 
+            "label": "Senior Web Developer"
+        }, 
+        {
+            "value": "Software Architect", 
+            "label": "Software Architect"
+        }, 
+        {
+            "value": "Software Developer", 
+            "label": "Software Developer"
+        }, 
+        {
+            "value": "Software Engineer", 
+            "label": "Software Engineer"
+        }, 
+        {
+            "value": "Software Quality Assurance Analyst", 
+            "label": "Software Quality Assurance Analyst"
+        }, 
+        {
+            "value": "Support Specialist", 
+            "label": "Support Specialist"
+        }, 
+        {
+            "value": "Systems Administrator", 
+            "label": "Systems Administrator"
+        }, 
+        {
+            "value": "Systems Analyst", 
+            "label": "Systems Analyst"
+        }, 
+        {
+            "value": "System Architect", 
+            "label": "System Architect"
+        }, 
+        {
+            "value": "Systems Designer", 
+            "label": "Systems Designer"
+        }, 
+        {
+            "value": "Systems Software Engineer", 
+            "label": "Systems Software Engineer"
+        }, 
+        {
+            "value": "Technical Operations Officer", 
+            "label": "Technical Operations Officer"
+        }, 
+        {
+            "value": "Technical Support Engineer", 
+            "label": "Technical Support Engineer"
+        }, 
+        {
+            "value": "Technical Support Specialist", 
+            "label": "Technical Support Specialist"
+        }, 
+        {
+            "value": "Technical Specialist", 
+            "label": "Technical Specialist"
+        }, 
+        {
+            "value": "Telecommunications Specialist", 
+            "label": "Telecommunications Specialist"
+        }, 
+        {
+            "value": "Web Administrator", 
+            "label": "Web Administrator"
+        }, 
+        {
+            "value": "Web Developer", 
+            "label": "Web Developer"
+        }, 
+        {
+            "value": "Webmaster", 
+            "label": "Webmaster"
+        }
+    ]
+}

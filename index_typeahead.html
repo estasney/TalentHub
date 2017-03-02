@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any
+    other head content must come *after* these tags -->
+    <title>Boolean Search Generator</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/mystyles.css" rel="stylesheet">
+
+
+
+    <!-- Javascript files -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="ConnectJson.js"></script>
+    <script type="text/javascript" src="Boolsearch.js"></script>
+
+
+
+</head>
+
+
+<!-- jQuery UI Autocomple for Geographic Area.  Data retrieve from json file -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript" src="js/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.js"></script>
+
+
+
+
+
+
+
+<body>
+
+
+      <header>
+
+
+      </header>
+      <div id="prefetch">
+      <input class="typeahead" type="text" placeholder="Countries">
+    </div>
+
+    <div id="typeaheadmulti">
+      <input class="typeahead" type="text" placeholder="Search Languages">
+    </div>
+
+
+
+
+
+
+<script type="text/javascript">
+var language = new Bloodhound({
+datumTokenizer: Bloodhound.tokenizers.whitespace,
+queryTokenizer: Bloodhound.tokenizers.whitespace,
+prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/titles_ex.json'
+
+//local: ["English", "Arabic", "Japanese"]
+});
+
+$('#typeaheadmulti .typeahead').typeaheadmulti({
+hint: true,
+highlight: true,
+minLength: 2
+},
+{
+name: 'language',
+source: language,
+limit: 20
+});
+</script>
+
+    <script type="text/javascript">
+        var countries = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            // url points to a json file that contains an array of country names, see
+            // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+            prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/countries.json'
+        });
+
+        // passing in `null` for the `options` arguments will result in the default
+        // options being used
+        $('#prefetch .typeahead').typeahead(null, {
+            name: 'countries',
+            source: countries
+        });
+    </script>
+
+
+
+
+
+<script type="text/javascript">
+// constructs the suggestion engine
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+
+    // an array that will be populated with substring matches
+    matches = [];
+
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+
+    cb(matches);
+  };
+};
+
+var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+];
+
+$('#the-basics .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'states',
+  source: substringMatcher(states)
+});</script>
+      <footer>
+
+      </footer>
+
+</body>
+
+</html>

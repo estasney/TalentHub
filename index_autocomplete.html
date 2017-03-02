@@ -14,6 +14,8 @@
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/mystyles.css" rel="stylesheet">
 
+
+
     <!-- Javascript files -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="ConnectJson.js"></script>
@@ -28,137 +30,159 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/typeahead.bundle.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+
+
 <script type="text/javascript">
     var jQuery_1 = $.noConflict(true);
 </script>
 
 <script type="text/javascript">
+    var countries = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // url points to a json file that contains an array of country names, see
+        // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+        prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/countries.json'
+    });
 
-var geo_array = [];
-
-	function split(val) {
-		return val.split(/\s*OR\s*/);
-		//return val.split(/,\s*/);
-	}
-
-	function extractLast(term) {
-		return split(term).pop();
-	}
-
-	function get_geoArray () {
-		return geo_array;
-	}
-
-	$(function() {
-
-		//Stores the Geocodes as an array of codes to be processed later
-		//var geo_array = [];
-		//Stores the Job titles as an array for futher processing
-		//var titles_array = [];
-		var getData = function(request, response) {
-			jQuery_1.getJSON(
-
-				"https://ciscotalenthub.github.io/TalentHub//geocodes.json?callback=?" + request.term,
-				function(data) {
-					var array = $.map(data.geocodes, function(item) {
-						return {
-							label: item.description,
-							value: item.code
-						}
-					});
-					response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
-				});
-		};
-
-		var selectItem = function(event, ui) {
-
-			var areas = split(this.value);
-			// remove the current input
-			areas.pop();
-			// add the selected item
-			var geo = '"' + ui.item.label + '"';
-			areas.push(geo);
-			// add placeholder to get the comma-and-space at the end
-			areas.push("");
-
-			this.value = areas.join(" OR ").slice(0, -4);
+    // passing in `null` for the `options` arguments will result in the default
+    // options being used
+    $('#prefetch .typeahead').typeahead(null, {
+        name: 'countries',
+        source: countries
+    });
+</script>
 
 
+<script type="text/javascript">
+    var geo_array = [];
 
-				if (areas.length == 2){
-					geo_array = [];
-					geo_array.push(ui.item.value);
-				} else {
-					geo_array.push(ui.item.value);
-				}
-				//$("#company").val(geo_array.join(" OR "));
+    function split(val) {
+        return val.split(/\s*OR\s*/);
+        //return val.split(/,\s*/);
+    }
 
-			//}
+    function extractLast(term) {
+        return split(term).pop();
+    }
 
-			return false;
-		}
+    function get_geoArray() {
+        return geo_array;
+    }
 
-		jQuery_1("#geoarea").autocomplete({
-			source: getData,
-			select: selectItem,
-			minLength: 2,
-			focus: function() {
-				// prevent value inserted on focus
-				return false;
-			},
-		});
+    $(function() {
 
-		//Job Titles Autocomplete
-		var getTitle = function(request, response) {
-			jQuery_1.getJSON(
+        //Stores the Geocodes as an array of codes to be processed later
+        //var geo_array = [];
+        //Stores the Job titles as an array for futher processing
+        //var titles_array = [];
+        var getData = function(request, response) {
+            jQuery_1.getJSON(
 
-				"https://ciscotalenthub.github.io/TalentHub//job_titles.json?callback=?" + request.term,
-				function(data) {
-					var array = $.map(data.titles, function(item) {
-						return {
-							label: item.label,
-							value: item.value
-						}
-					});
-					response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
-				});
-		};
+                "https://ciscotalenthub.github.io/TalentHub//geocodes.json?callback=?" + request.term,
+                function(data) {
+                    var array = $.map(data.geocodes, function(item) {
+                        return {
+                            label: item.description,
+                            value: item.code
+                        }
+                    });
+                    response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
+                });
+        };
 
-		var selectTitle = function(event, ui) {
-			var terms = split(this.value);
-			// remove the current input
-			terms.pop();
-			// add the selected item
-			var title = '"' + ui.item.value + '"';
-			terms.push(title);
-			// add placeholder to get the comma-and-space at the end
-			terms.push("");
-// combines the values but removes the appended " OR "
-			this.value = terms.join(" OR ").slice(0, -4);
+        var selectItem = function(event, ui) {
 
-			//if (terms.length == 2){
-				//titles_array = [];
-				//titles_array.push(ui.item.value);
-			//} else {
-				//titles_array.push(ui.item.value);
-			//}
+            var areas = split(this.value);
+            // remove the current input
+            areas.pop();
+            // add the selected item
+            var geo = '"' + ui.item.label + '"';
+            areas.push(geo);
+            // add placeholder to get the comma-and-space at the end
+            areas.push("");
 
-			//$("#company").val(titles_array.join(" OR "));
+            this.value = areas.join(" OR ").slice(0, -4);
 
 
-			return false;
-		}
 
-		jQuery_1("#title").autocomplete({
-			source: getTitle,
-			select: selectTitle,
-			minLength: 2,
-			focus: function() {
-				// prevent value inserted on focus
-				return false;
-			},
-		});
-	});
+            if (areas.length == 2) {
+                geo_array = [];
+                geo_array.push(ui.item.value);
+            } else {
+                geo_array.push(ui.item.value);
+            }
+            //$("#company").val(geo_array.join(" OR "));
+
+            //}
+
+            return false;
+        }
+
+        jQuery_1("#geoarea").autocomplete({
+            source: getData,
+            select: selectItem,
+            minLength: 2,
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+        });
+
+        //Job Titles Autocomplete
+        var getTitle = function(request, response) {
+            jQuery_1.getJSON(
+
+                "https://ciscotalenthub.github.io/TalentHub//job_titles.json?callback=?" + request.term,
+                function(data) {
+                    var array = $.map(data.titles, function(item) {
+                        return {
+                            label: item.label,
+                            value: item.value
+                        }
+                    });
+                    response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
+                });
+        };
+
+        var selectTitle = function(event, ui) {
+            var terms = split(this.value);
+            // remove the current input
+            terms.pop();
+            // add the selected item
+            var title = '"' + ui.item.value + '"';
+            terms.push(title);
+            // add placeholder to get the comma-and-space at the end
+            terms.push("");
+            // combines the values but removes the appended " OR "
+            this.value = terms.join(" OR ").slice(0, -4);
+
+            //if (terms.length == 2){
+            //titles_array = [];
+            //titles_array.push(ui.item.value);
+            //} else {
+            //titles_array.push(ui.item.value);
+            //}
+
+            //$("#company").val(titles_array.join(" OR "));
+
+
+            return false;
+        }
+
+        jQuery_1("#title").autocomplete({
+            source: getTitle,
+            select: selectTitle,
+            minLength: 2,
+            focus: function() {
+                // prevent value inserted on focus
+                return false;
+            },
+        });
+    });
 </script>
 
 
@@ -212,18 +236,18 @@ var geo_array = [];
     <div class="container logo-container" id="logos">
         <div class="row">
 
-                <div class="col-xs-2 col-sm-1 col-sm-offset-3"><img src=".\assets\Avature.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\Indeed.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\Dice.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\Google.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\Github.png" onclick="" class="img-responsive"></img>
-                </div>
-                <div class="col-xs-2 col-sm-1"><img src=".\assets\LinkedIn.png" onclick="boolSearch('linkedin')" class="img-responsive"></img>
-                </div>
+            <div class="col-xs-2 col-sm-1 col-sm-offset-3"><img src=".\assets\Avature.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\Indeed.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\Dice.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\Google.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\Github.png" onclick="" class="img-responsive"></img>
+            </div>
+            <div class="col-xs-2 col-sm-1"><img src=".\assets\LinkedIn.png" onclick="boolSearch('linkedin')" class="img-responsive"></img>
+            </div>
 
         </div>
     </div>
@@ -331,6 +355,10 @@ var geo_array = [];
                     </table>
 
                 </form>
+                <!-- Twitter typeahead plugin -->
+                <div id="prefetch">
+                    <input class="typeahead" type="text" placeholder="Countries">
+                </div>
 
             </div>
             <!-- Second column where keyword input box and resulting keywords appear -->
@@ -406,7 +434,8 @@ var geo_array = [];
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+
+
 
     <script>
         $("#bool1").css({
