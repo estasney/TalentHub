@@ -41,173 +41,6 @@
 
 
 
-<!--
-<script type="text/javascript">
-    var geo_array = [];
-
-    function split(val) {
-        return val.split(/\s*OR\s*/);
-        //return val.split(/,\s*/);
-    }
-
-    function extractLast(term) {
-        return split(term).pop();
-    }
-
-    function get_geoArray() {
-        return geo_array;
-    }
-
-    $(function() {
-
-        //Stores the Geocodes as an array of codes to be processed later
-        //var geo_array = [];
-        //Stores the Job titles as an array for futher processing
-        //var titles_array = [];
-
-        var getData = function(request, response) {
-            jQuery_1.getJSON(
-
-                "https://ciscotalenthub.github.io/TalentHub//geocodes.json?callback=?" + request.term,
-                function(data) {
-                    var array = $.map(data.geocodes, function(item) {
-                        return {
-                            label: item.description,
-                            value: item.code
-                        }
-                    });
-                    response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
-                });
-        };
-
-        var selectItem = function(event, ui) {
-
-            var areas = split(this.value);
-            // remove the current input
-            areas.pop();
-            // add the selected item
-            var geo = '"' + ui.item.label + '"';
-            areas.push(geo);
-            // add placeholder to get the comma-and-space at the end
-            areas.push("");
-
-            this.value = areas.join(" OR ").slice(0, -4);
-
-
-
-            if (areas.length == 2) {
-                geo_array = [];
-                geo_array.push(ui.item.value);
-            } else {
-                geo_array.push(ui.item.value);
-            }
-            //$("#company").val(geo_array.join(" OR "));
-
-            //}
-
-            return false;
-        }
-
-        jQuery_1("#geoarea").autocomplete({
-            source: getData,
-            select: selectItem,
-            minLength: 3,
-            focus: function() {
-                // prevent value inserted on focus
-                return false;
-            },
-        });
-
-
-                //Companies Autocomplete
-                var getCompany = function(request, response) {
-                    jQuery_1.getJSON(
-
-                        "https://ciscotalenthub.github.io/TalentHub//companies.json?callback=?" + request.term,
-                        function(data) {
-                            var array = $.map(data.titles, function(item) {
-                                return {
-                                    label: item.label,
-                                    value: item.value
-                                }
-                            });
-                            response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
-                        });
-                };
-
-                var selectCompanies = function(event, ui) {
-                    var company = split(this.value);
-                    // remove the current input
-                    company.pop();
-                    // add the selected item
-                    var comp_name = '"' + ui.item.value + '"';
-                    company.push(comp_name);
-                    // add placeholder to get the comma-and-space at the end
-                    company.push("");
-                    // combines the values but removes the appended " OR "
-                    this.value = company.join(" OR ").slice(0, -4);
-
-
-                    return false;
-                }
-
-                jQuery_1("#company").autocomplete({
-                    source: getCompany,
-                    select: selectCompanies,
-                    minLength: 3,
-                    focus: function() {
-                        // prevent value inserted on focus
-                        return false;
-                    },
-                });
-
-        //Job Titles Autocomplete
-        var getTitle = function(request, response) {
-            jQuery_1.getJSON(
-
-                "https://ciscotalenthub.github.io/TalentHub//job_titles.json?callback=?" + request.term,
-                function(data) {
-                    var array = $.map(data.titles, function(item) {
-                        return {
-                            label: item.label,
-                            value: item.value
-                        }
-                    });
-                    response(jQuery_1.ui.autocomplete.filter(array, extractLast(request.term)));
-                });
-        };
-
-        var selectTitle = function(event, ui) {
-            var terms = split(this.value);
-            // remove the current input
-            terms.pop();
-            // add the selected item
-            var title = '"' + ui.item.value + '"';
-            terms.push(title);
-            // add placeholder to get the comma-and-space at the end
-            terms.push("");
-            // combines the values but removes the appended " OR "
-            this.value = terms.join(" OR ").slice(0, -4);
-
-
-            return false;
-        }
-
-        jQuery_1("#title").autocomplete({
-            source: getTitle,
-            select: selectTitle,
-            minLength: 3,
-            focus: function() {
-                // prevent value inserted on focus
-                return false;
-            },
-        });
-
-
-    });
-</script>
-
--->
 
 <body>
 
@@ -503,6 +336,14 @@
 
       <!-- Geographic Area typeahead autocomplete -->
     <script type="text/javascript">
+
+      var geo_array = [];
+
+      function get_geoArray() {
+          return geo_array;
+      }
+
+
         var geoArea = new Bloodhound({
             datumTokenizer: function(datum) {
                 return Bloodhound.tokenizers.whitespace(datum.description);
@@ -534,9 +375,17 @@
             limit: 20
 
         });
+
+        // Store the selected Geoarea and Code into array for processing
+        $('#typeaheadmulti_geo .typeahead').bind('typeahead:select', function(ev, suggestion) {
+          var geo_selected = suggestion.description + suggestion.code;
+          geo_array.push(geo_selected);
+          console.log(geo_array);
+  console.log('Selection: ' + suggestion.code);
+});
     </script>
 
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -575,20 +424,32 @@
 
             var title = document.getElementById("title").value;
             var company = document.getElementById("company").value;
-            var geoarea = document.getElementById("geoarea").value;
 
-            //Geocode does not reset when Geoarea resets so manually reset Geocode to ""
-            if (geoarea) {
-                var geocode = document.getElementById("geocode").value;
-            } else {
-                var geocode = "";
+            //Get Values from GeoArea list
+            var geo_list = document.getElementById("typeaheadmulti_geo").getElementsByTagName("li");
+            //var geo_array = get_geoArray();
+            var code_array = [];
+
+            //Compare GeoArea list to geo_array to process listed locations
+            for(i = 0; i < geo_list.length; i++){
+              for(n = 0; n < geo_array.length; n++){
+                //list_item is an array that contains GeoArea name
+                //split because geo_list contains hidden html tags <i>
+                var list_item = geo_list[i].innerHTML.split('<', 1);
+                if (geo_array[n].includes(list_item[0])){
+                  var code = geo_array[n].slice(list_item[0].length);
+                  code_array.push(code);
+                  break;
+
+                }
+              }
             }
 
-            var geoarray = [];
+            //var geoarray = [];
             //Revisit this because jQuery autocomplete was replaced with typeahead
             //var geoarray = get_geoArray();
 
-            openSearch(website, bool1, title, company, geoarray);
+            openSearch(website, bool1, title, company,code_array);
 
         }
     </script>
