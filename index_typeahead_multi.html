@@ -36,8 +36,8 @@
 </script>
 
 <script src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/typeahead.bundle.js"></script>
-  <script type="text/javascript" src="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.js"></script>
+<script type="text/javascript" src="js/typeahead.bundle.js"></script>
+<script type="text/javascript" src="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.js"></script>
 
 
 
@@ -332,23 +332,29 @@
                                 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">Company</label></td>
 
                                 <td class="npl epr">
-                                  <div id="typeaheadmulti_company"><input class="typeahead" type="text" placeholder="Company" id="company"></div></td>
-                            <!--      <input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" name="q" autocomplete="off" id="company"></td> -->
+                                    <div id="typeaheadmulti_company"><input class="typeahead" type="text" placeholder="Company" id="company"></div>
+                                </td>
+                                <!--      <input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" name="q" autocomplete="off" id="company"></td> -->
                             </tr>
 
                             <tr>
                                 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">JobTitle</label></td>
 
                                 <td class="npl epr">
-                                  <div id="typeaheadmulti"><input class="typeahead" type="text" placeholder="Job Titles" id="title"></div></td>
-                            <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" name="q" autocomplete="off" id="title"></td> -->
+                                    <div id="typeaheadmulti"><input class="typeahead" type="text" placeholder="Job Titles" id="title"></div>
+                                </td>
+                                <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" name="q" autocomplete="off" id="title"></td> -->
 
                             </tr>
 
                             <tr>
                                 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">GeoArea</label></td>
+                                <td class="npl epr">
 
-                                <td class="npl epr"><input class="input_text" type="search" placeholder="Geographic Area" maxlength="512" style="width:97%" name="q" autocomplete="off" id="geoarea"><input type="hidden" id="geocode"></td>
+                                    <div id="typeaheadmulti_geo"><input class="typeahead" type="text" placeholder="Geographic Area" id="geoarea"></div>
+                                </td>
+
+                                <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Geographic Area" maxlength="512" style="width:97%" name="q" autocomplete="off" id="geoarea"><input type="hidden" id="geocode"></td> -->
                             </tr>
 
 
@@ -460,7 +466,7 @@
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/companies.json'
 
-            //local: ["English", "Arabic", "Japanese"]
+
         });
 
         $('#typeaheadmulti_company .typeahead').typeaheadmulti({
@@ -481,7 +487,7 @@
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/titles_ex.json'
 
-            //local: ["English", "Arabic", "Japanese"]
+
         });
 
         $('#typeaheadmulti .typeahead').typeaheadmulti({
@@ -495,6 +501,42 @@
         });
     </script>
 
+      <!-- Geographic Area typeahead autocomplete -->
+    <script type="text/javascript">
+        var geoArea = new Bloodhound({
+            datumTokenizer: function(datum) {
+                return Bloodhound.tokenizers.whitespace(datum.description);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: {
+                url: 'https://ciscotalenthub.github.io/TalentHub/data/codes.json',
+                cache: false,
+                transform: function(response) {
+                    return $.map(response, function(item) {
+                        return {
+                            code: item.code,
+                            description: item.description
+                        };
+                    });
+                }
+            }
+        });
+
+        // instantiate the typeahead UI
+        $('#typeaheadmulti_geo .typeahead').typeaheadmulti({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+            name: 'engine',
+            source: geoArea,
+            display: 'description',
+            limit: 20
+
+        });
+    </script>
+
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
