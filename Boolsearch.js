@@ -30,33 +30,6 @@ function openSearch(website, bool, title, company, geo_array) {
     } //End switch
 
 
-    /*
-        //Check for optional search criteria Job Title and Company
-        if (title) {
-            var str_title = title.replace(/ /g, '%20').replace(/"/g, '%22');
-            search_opt = "&title=" + str_title;
-            if (company) {
-                //Job Title and Company is present
-                var str_company = company.replace(/ /g, '%20').replace(/"/g, '%22');
-                search_opt = search_opt + "&company=" + str_company + "&openAdvancedForm=true&titleScope=CP&companyScope=CP&locationType=Y";
-                search = search + search_opt;
-            } else {
-                //Only Job Title is present
-                search_opt = search_opt + "&openAdvancedForm=true&titleScope=CP&locationType=Y";
-                search = search + search_opt;
-            }
-        } else if (company) {
-            //Only Company is present
-            var str_company = company.replace(/ /g, '%20').replace(/"/g, '%22');
-            search_opt = "&company=" + str_company + "&openAdvancedForm=true&companyScope=CP&locationType=Y";
-            search = search + search_opt;
-        } else {
-          //No optional search criteria used
-          search = search + "&openAdvancedForm=true&locationType=Y";
-        }
-    */
-
-    //str = str.replace(/ /g, '%20').replace(/"/g, '%22').replace(/:/g, '%3A').replace(/\(/g, '%28').replace(/\)/g, '%29');
 
     //Process the geocode
 
@@ -109,7 +82,7 @@ function openSearch(website, bool, title, company, geo_array) {
 }
 
 //Generates the boolean string by combining the main boolean and the optional operators.
-function generateBoolean(generate, bool1, bool2, bool3, bool4, bool_not) {
+function generateBoolean(generate, bool1, bool2, bool_not) {
 
     var boolString = "";
 
@@ -131,11 +104,12 @@ function generateBoolean(generate, bool1, bool2, bool3, bool4, bool_not) {
             if (bool2) {
                 var str_bool2 = bool2.trim();
                 str_bool2 = "(" + str_bool2 + ")";
+                boolString = str_bool1 + " AND " + str_bool2;
             } else {
                 boolString = str_bool1;
                 break;
             }
-
+/*
             if (bool3) {
                 var str_bool3 = bool3.trim();
                 str_bool3 = "(" + str_bool3 + ")";
@@ -153,6 +127,7 @@ function generateBoolean(generate, bool1, bool2, bool3, bool4, bool_not) {
                 boolString = str_bool1 + " AND " + str_bool2 + " AND " + str_bool3;
                 break;
             }
+*/
     } //End switch
 
     //Append the NOT to the boolean string if present
@@ -165,8 +140,6 @@ function generateBoolean(generate, bool1, bool2, bool3, bool4, bool_not) {
     //Update the Boolean textarea with the generated boolean string
     document.getElementById('bool1').value = boolString;
     document.getElementById("bool2").value = "";
-    document.getElementById("bool3").value = "";
-    document.getElementById("bool4").value = "";
     document.getElementById("bool_not").value = "";
 
 }
@@ -177,24 +150,17 @@ function clearBoolean() {
 
     document.getElementById("bool1").value = "";
     document.getElementById("bool2").value = "";
-    document.getElementById("bool3").value = "";
-    document.getElementById("bool4").value = "";
     document.getElementById("bool_not").value = "";
     document.getElementById("company").value = "";
-    document.getElementById("title").value = "";
-    document.getElementById("geoarea").value = "";
-    document.getElementById("geocode").value = "";
+    $('#typeaheadmulti_title .ttmulti-selections').empty();
+    $('#typeaheadmulti_company .ttmulti-selections').empty();
+    $('#typeaheadmulti_geo .ttmulti-selections').empty();
+    //Initalize geo_array to empty
+    init_geoArray();
 
     document.getElementById("radio1").checked = true;
+
     $("#bool2").css({
-        "box-shadow": "",
-        "border": ""
-    });
-    $("#bool3").css({
-        "box-shadow": "",
-        "border": ""
-    });
-    $("#bool4").css({
         "box-shadow": "",
         "border": ""
     });

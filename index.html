@@ -94,8 +94,10 @@
     <div class="container logo-container" id="logos">
         <div class="row">
 
-            <div class="col-xs-2 col-sm-1 col-sm-offset-3 img-hover"><img src=".\assets\Avature.png" onclick="" class="img-responsive"></img>
+            <div class="col-xs-6 col-sm-1 col-sm-offset-5 img-hover"><img src=".\assets\Avature.png" onclick="" class="img-responsive"></img>
             </div>
+
+          <!--
             <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\indeed.png" onclick="" class="img-responsive"></img>
             </div>
             <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\dice.png" onclick="" class="img-responsive"></img>
@@ -104,7 +106,8 @@
             </div>
             <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\github.png" onclick="" class="img-responsive"></img>
             </div>
-            <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\linkedin.png" onclick="boolSearch('linkedin')" class="img-responsive"></img>
+          -->
+            <div class="col-xs-6 col-sm-1 img-hover"><img src=".\assets\linkedin.png" onclick="boolSearch('linkedin')" class="img-responsive"></img>
             </div>
 
         </div>
@@ -131,7 +134,7 @@
 
                             <tr>
                                 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
-                                <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Options</label></td>
+                                <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Operators</label></td>
 
                             </tr>
 
@@ -142,19 +145,6 @@
                                 <td><input type="radio" name="input_radio" class="bool_radio" value="bool2" id="radio2"></td>
                             </tr>
 
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
-
-                                <td class="npl epr"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio3')" onkeypress="handle_bool(event, 'bool3', 'results_body')" style="width:97%" name="q" autocomplete="off" id="bool3"></td>
-                                <td><input type="radio" name="input_radio" class="bool_radio" value="bool3" id="radio3"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
-
-                                <td class="npl epr"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio4')" onkeypress="handle_bool(event, 'bool4', 'results_body')" style="width:97%" name="q" autocomplete="off" id="bool4"></td>
-                                <td><input type="radio" name="input_radio" class="bool_radio" value="bool4" id="radio4"></td>
-                            </tr>
 
                             <tr>
                                 <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">NOT</label></td>
@@ -321,13 +311,15 @@
 
                 var myVal = e.target.value;
 
+
                 if (myVal) {
                     //Append <li> and bind the click function to remove from list
                     $("#typeaheadmulti_company .ttmulti-selections").append("<li>" + myVal + '<i class="js-remove">✖</i>' + "</li>").find(".js-remove").bind("click", function() {
                         this.parentNode.remove()
                     });
                     $('#typeaheadmulti_company .typeahead').typeahead('close');
-                    e.target.value = "";
+                    $('#typeaheadmulti_company .typeahead').typeahead("val", "");
+                    //e.target.value = "";
                 }
             }
         });
@@ -367,7 +359,8 @@
                         this.parentNode.remove()
                     });
                     $('#typeaheadmulti_title .typeahead').typeahead('close');
-                    e.target.value = "";
+                    $('#typeaheadmulti_title .typeahead').typeahead("val", "");
+
                 }
             }
         });
@@ -379,6 +372,10 @@
 
         function get_geoArray() {
             return geo_array;
+        }
+
+        function init_geoArray() {
+            geo_array = [];
         }
 
 
@@ -444,11 +441,9 @@
             //Get all the values from the search fields and pass it to the search function
             var bool1 = document.getElementById("bool1").value;
             var bool2 = document.getElementById("bool2").value;
-            var bool3 = document.getElementById("bool3").value;
-            var bool4 = document.getElementById("bool4").value;
             var bool_not = document.getElementById("bool_not").value;
 
-            generateBoolean(generate, bool1, bool2, bool3, bool4, bool_not);
+            generateBoolean(generate, bool1, bool2, bool_not);
 
         }
     </script>
@@ -572,8 +567,6 @@
                 document.getElementById('radio1').checked = false;
             } else {
                 document.getElementById('radio2').checked = false;
-                document.getElementById('radio3').checked = false;
-                document.getElementById('radio4').checked = false;
                 document.getElementById('bool_radio').checked = false;
             }
             document.getElementById(radio_button).checked = true;
@@ -584,14 +577,6 @@
                 "border": ""
             });
             $("#bool2").css({
-                "box-shadow": "",
-                "border": ""
-            });
-            $("#bool3").css({
-                "box-shadow": "",
-                "border": ""
-            });
-            $("#bool4").css({
                 "box-shadow": "",
                 "border": ""
             });
