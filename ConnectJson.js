@@ -10,6 +10,14 @@ $.ajaxPrefilter(function(options) {
     }
 });
 
+function getWords(input1, results_body) {
+    var search_word = document.getElementById(input1).value;
+    document.getElementById("hubImage").style.display = 'none';
+    //document.getElementById("hubImage").style.visibility = 'hidden';
+
+    testBox(search_word, results_body);
+}
+
 function testBox(word, tab_button) {
 
     var url = "https://hiringsolved.com/api/v2/related?q=" + word + "&size=50&filter=true";

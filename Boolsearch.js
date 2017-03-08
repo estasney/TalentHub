@@ -1,3 +1,71 @@
+function boolSearch(website) {
+    //Get all the values from the search fields and pass it to the search function
+    var bool1 = document.getElementById("bool1").value;
+
+    //var title = document.getElementById("title").value;
+    var title_list = document.getElementById("typeaheadmulti_title").getElementsByTagName("li");
+
+    var title = '';
+    if (title_list.length != 0) {
+        for (i = 0; i < title_list.length; i++) {
+            var title_item = title_list[i].innerHTML.split('<', 1);
+            title_item = '"' + title_item + '"';
+            if (i != (title_list.length - 1)) {
+                title = title + "title:" + title_item + " OR ";
+            } else {
+                title = title + "title:" + title_item;
+            }
+            //title.push(title_item);
+        }
+        title = "(" + title + ")";
+    }
+
+
+    var company_list = document.getElementById("typeaheadmulti_company").getElementsByTagName("li");
+    var company = '';
+    if (company_list.length != 0) {
+        for (i = 0; i < company_list.length; i++) {
+            var company_item = company_list[i].innerHTML.split('<', 1);
+            company_item = '"' + company_item + '"';
+            if (i != (company_list.length - 1)) {
+                company = company + "company:" + company_item + " OR ";
+            } else {
+                company = company + "company:" + company_item;
+            }
+            //title.push(title_item);
+        }
+        company = "(" + company + ")";
+    }
+
+
+    //Get Values from GeoArea list - returns a NodeList
+    var geo_list = document.getElementById("typeaheadmulti_geo").getElementsByTagName("li");
+    //var geo_array = get_geoArray();
+    var code_array = [];
+
+    //geo_array is declared in Custom_typeahead.js
+
+    //Compare GeoArea list to geo_array to process listed locations
+    for (i = 0; i < geo_list.length; i++) {
+        for (n = 0; n < geo_array.length; n++) {
+            //list_item is an array that contains GeoArea name
+            //split because geo_list contains hidden html tags <i>
+            var geo_item = geo_list[i].innerHTML.split('<', 1);
+            if (geo_array[n].includes(geo_item[0])) {
+                var code = geo_array[n].slice(geo_item[0].length);
+                code_array.push(code);
+                break;
+
+            }
+        }
+    }
+
+
+    openSearch(website, bool1, title, company, code_array);
+
+}
+
+
 function openSearch(website, bool, title, company, geo_array) {
 
     var search = "";
@@ -11,8 +79,7 @@ function openSearch(website, bool, title, company, geo_array) {
 
             if (title) {
                 var str_title = title.replace(/ /g, '%20');
-                console.log('Title array size: ' + title)
-                //search = search + "%20AND%20" str_title;
+
                 if (company.length != 0) {
                     //Job Title and Company is present
                     var str_company = company.replace(/ /g, '%20');
@@ -109,25 +176,7 @@ function generateBoolean(generate, bool1, bool2, bool_not) {
                 boolString = str_bool1;
                 break;
             }
-/*
-            if (bool3) {
-                var str_bool3 = bool3.trim();
-                str_bool3 = "(" + str_bool3 + ")";
-            } else {
-                boolString = str_bool1 + " AND " + str_bool2;
-                break;
-            }
 
-            if (bool4) {
-                var str_bool4 = bool4.trim();
-                str_bool4 = "(" + str_bool4 + ")";
-                boolString = str_bool1 + " AND " + str_bool2 + " AND " + str_bool3 + " AND " + str_bool4;
-                break;
-            } else {
-                boolString = str_bool1 + " AND " + str_bool2 + " AND " + str_bool3;
-                break;
-            }
-*/
     } //End switch
 
     //Append the NOT to the boolean string if present
@@ -155,8 +204,11 @@ function clearBoolean() {
     $('#typeaheadmulti_title .ttmulti-selections').empty();
     $('#typeaheadmulti_company .ttmulti-selections').empty();
     $('#typeaheadmulti_geo .ttmulti-selections').empty();
-    //Initalize geo_array to empty
+    //Initialize geo_array to empty
+    var geoarray = get_geoArray();
+
     init_geoArray();
+    geoarray = get_geoArray();
 
     document.getElementById("radio1").checked = true;
 
