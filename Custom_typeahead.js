@@ -14,7 +14,7 @@ function init_Typeahead() {
     var language = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: 'https://estasney.github.io/TalentHub/data/companies.json'
+        prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/companies.json'
 
 
     });
@@ -56,7 +56,7 @@ function init_Typeahead() {
     var language = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        prefetch: 'https://estasney.github.io/TalentHub/data/titles_ex.json'
+        prefetch: 'https://ciscotalenthub.github.io/TalentHub/data/titles_ex.json'
 
 
     });
@@ -103,7 +103,7 @@ function init_Typeahead() {
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: {
-            url: 'https://estasney.github.io/TalentHub/data/codes.json',
+            url: 'https://ciscotalenthub.github.io/TalentHub/data/codes.json',
             cache: false,
             transform: function(response) {
                 return $.map(response, function(item) {
