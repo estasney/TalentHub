@@ -38,28 +38,19 @@ function testBox(word, tab_button) {
     //Gets the JSON info from external source
     $.getJSON(url, function(response) {
         //related is the dict in the returned json var response
-        for (item in response[0].data) {
+        var items = response.items;
+        items.forEach(function (item, index){
             var x = document.createElement("INPUT");
-
-
-            var butId = response[0].data[item][0];
-            var score = response[0].data[item][1];
-
+            var butId = item.word;
+            var score = item.score;
             x.setAttribute("type", "button");
             x.setAttribute("class", "results_buttons");
             x.setAttribute("value", butId);
             x.setAttribute("id", butId);
             x.setAttribute("onclick", "getValue(this.id)");
-
-            //document.body.appendChild(x);
-            //var x = document.getElementById("myButton").value;
-            //document.getElementById("demo").innerHTML = x;
-            //var p_id = 'buttons' + butt_num;
-            //document.getElementById(p_id).appendChild(x);
             document.getElementById(tab_button).appendChild(x);
-        }
+        });
 
-        console.log("> ", response);
         $("#viewer").html(response);
     });
 
