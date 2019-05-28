@@ -1,5 +1,5 @@
 var search;
-//var url = 'https://hiringsolved.com/api/v2/related?q=kubernetes&size=20&filter=true'
+//var url = 'https://hiringsolved.com/api/v1/related?q=kubernetes&size=20&filter=true'
 
 //$(document).ready(function(){
 $.ajaxPrefilter(function(options) {
@@ -20,7 +20,7 @@ function getWords(input1, results_body) {
 
 function testBox(word, tab_button) {
 
-    var url = "https://estasney.pythonanywhere.com/api/v2/related?q=" + word + "&scope=words&n=50";
+    var url = "https://estasney.pythonanywhere.com/api/v1/related?q=" + word + "&scope=words&n=50";
     //Removes all the Buttons created from the last call
     document.getElementById(tab_button).innerHTML = "";
 
