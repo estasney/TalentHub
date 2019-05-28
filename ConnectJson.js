@@ -20,7 +20,7 @@ function getWords(input1, results_body) {
 
 function testBox(word, tab_button) {
 
-    var url = "https://estasney.pythonanywhere.com/api/v1/related?q=" + word + "&scope=words&n=50";
+    var url = "https://estasney.pythonanywhere.com/api/v1/related?q=" + word + "&scope=words&n=20";
     //Removes all the Buttons created from the last call
     document.getElementById(tab_button).innerHTML = "";
 
@@ -41,7 +41,7 @@ function testBox(word, tab_button) {
         var items = response.items;
         items.forEach(function (item, index){
             var x = document.createElement("INPUT");
-            var butId = item.word;
+            var butId = item.word.replace("_", " ");
             var score = item.score;
             x.setAttribute("type", "button");
             x.setAttribute("class", "results_buttons");
