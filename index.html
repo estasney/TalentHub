@@ -10,292 +10,292 @@
     <title>Boolean Search Generator</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="css/mystyles.css" rel="stylesheet">
     <link href="css/typeahead-multiselect.min.css" rel="stylesheet">
 
     <!-- Javascript files -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="ConnectJson.js"></script>
     <script type="text/javascript" src="Boolsearch.js"></script>
     <script type="text/javascript" src="Custom_typeahead.js"></script>
     <script type="text/javascript" src="Html_helper.js"></script>
+    <!-- jQuery UI Autocomple for Geographic Area.  Data retrieve from json file -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.css"> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
+    <script type="text/javascript">
+        var jQuery_1 = $.noConflict(true);
+    </script>
+    <script type="text/javascript" src="js/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="js/typeahead-multiselect.min.js"></script>
 
 </head>
-
-
-<!-- jQuery UI Autocomple for Geographic Area.  Data retrieve from json file -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<!-- <link rel="stylesheet" href="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.css"> -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script type="text/javascript">
-    var jQuery_1 = $.noConflict(true);
-</script>
-
-<script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/typeahead.bundle.js"></script>
-<script type="text/javascript" src="js/typeahead-multiselect.min.js"></script>
-<!--
-<script type="text/javascript" src="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.js"></script>
--->
-
-
-
 <body>
 
-    <!-- Header with main Boolean textarea -->
-    <header class="jumbotron">
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-
-                    <table cellspacing="2" cellpadding="3" width="95%" align="center">
-
-                        <colgroup>
-                            <col style="width: 5%;">
-                            <col span="2" style="width: 90%;">
-                            <col style="width: 5%;">
-                        </colgroup>
-
-                        <tbody>
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
-                                <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true"><h1>Boolean Search Generator</h1></label></td>
-
-                            </tr>
-
-                            <tr>
-
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
-                                <td class="npl epr"><textarea class="input_text_main" type="search" placeholder="Boolean String" onclick="setBoolFocus('radio1')" onkeypress="handle_bool(event, 'bool1', 'results_body')" style="width:100%" name="q" autocomplete="off" id="bool1"></textarea></td>
-
-
-                                <td><input type="radio" name="input_radio" class="bool_radio" value="bool1" checked="checked" id="radio1"></td>
-
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-
-
-                </div>
-
-            </div>
-        </div>
-
-    </header>
-
-    <!-- Clickable search icon/logo for each individual site -->
-    <div class="container logo-container" id="logos">
-        <div class="row">
-
-            <div class="col-xs-6 col-sm-1 col-sm-offset-5 img-hover"><img src=".\assets\Avature.png" onclick="" class="img-responsive"></img>
-            </div>
-
-            <!--
-            <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\indeed.png" onclick="" class="img-responsive"></img>
-            </div>
-            <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\dice.png" onclick="" class="img-responsive"></img>
-            </div>
-            <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\Google.png" onclick="" class="img-responsive"></img>
-            </div>
-            <div class="col-xs-2 col-sm-1 img-hover"><img src=".\assets\github.png" onclick="" class="img-responsive"></img>
-            </div>
-          -->
-            <div class="col-xs-6 col-sm-1 img-hover"><img src=".\assets\linkedin.png" onclick="boolSearch('linkedin')" class="img-responsive"></img>
-            </div>
-
-        </div>
-    </div>
-
-
-    <!-- Content, Optional operator fields and Keyword generator -->
+<!-- Header with main Boolean textarea -->
+<header class="jumbotron">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <form action="#" name="optional_opt">
+            <div class="col">
+
+                <table cellspacing="2" cellpadding="3" width="95%" align="center">
+
+                    <colgroup>
+                        <col style="width: 5%;">
+                        <col span="2" style="width: 90%;">
+                        <col style="width: 5%;">
+                    </colgroup>
+
+                    <tbody>
+                    <tr>
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
+                        <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true"><h1>Boolean
+                            Search Generator</h1></label></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
+                        <td class="npl epr"><textarea class="input_text_main" type="search" placeholder="Boolean String"
+                                                      onclick="setBoolFocus('radio1')"
+                                                      onkeypress="handle_bool(event, 'bool1', 'results_body')"
+                                                      style="width:100%" name="q" autocomplete="off"
+                                                      id="bool1"></textarea></td>
 
 
-                    <table cellspacing="2" cellpadding="3" width="100%" align="center">
+                        <td><input type="radio" name="input_radio" class="bool_radio" value="bool1" checked="checked"
+                                   id="radio1"></td>
 
-                        <colgroup>
-                            <col style="width: 5%;">
-                            <col span="2" style="width: 90%;">
-                            <col style="width: 5%;">
-
-                        </colgroup>
-
-                        <tbody>
-
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
-                                <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Operators</label></td>
-
-                            </tr>
-
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
-
-                                <td class="npl epr"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('radio2')" onkeypress="handle_bool(event, 'bool2', 'results_body')" style="width:97%" name="q" autocomplete="off" id="bool2"></td>
-                                <td><input type="radio" name="input_radio" class="bool_radio" value="bool2" id="radio2"></td>
-                            </tr>
+                    </tr>
 
 
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">NOT</label></td>
+                    </tbody>
+                </table>
 
-                                <td class="npl epr"><input class="input_text" type="search" maxlength="512" onclick="setBoolFocus('bool_radio')" onkeypress="handle_bool(event, 'bool_not', 'results_body')" style="width:97%" name="q" autocomplete="off" id="bool_not"></td>
-                                <td><input type="radio" name="input_radio" class="bool_radio" value="bool_not" id="bool_radio"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">Company</label></td>
-
-                                <td class="npl epr">
-                                    <div id="typeaheadmulti_company"><input class="typeahead" type="text" placeholder="Company" id="company"></div>
-                                </td>
-                                <!--      <input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" name="q" autocomplete="off" id="company"></td> -->
-                            </tr>
-
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">JobTitle</label></td>
-
-                                <td class="npl epr">
-                                    <div id="typeaheadmulti_title"><input class="typeahead" type="text" placeholder="Job Titles" id="title"></div>
-                                </td>
-                                <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" name="q" autocomplete="off" id="title"></td> -->
-
-                            </tr>
-
-                            <tr>
-                                <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">GeoArea</label></td>
-                                <td class="npl epr">
-
-                                    <div id="typeaheadmulti_geo"><input class="typeahead" type="text" placeholder="Geographic Area" id="geoarea"></div>
-                                </td>
-
-                                <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Geographic Area" maxlength="512" style="width:97%" name="q" autocomplete="off" id="geoarea"><input type="hidden" id="geocode"></td> -->
-                            </tr>
-
-
-
-                        </tbody>
-                    </table>
-                    <br>
-                    <table cellspacing="2" cellpadding="3" width="100%" align="center">
-
-                        <colgroup>
-                            <col style="width: 50%;">
-                            <col style="width: 50%;">
-
-                        </colgroup>
-
-                        <tbody>
-
-                            <tr>
-
-                                <td class="npl" style="width:1px" align="center">
-                                    <button id="fj" onclick="clearBoolean()" type="button" class="input_boolean">Clear</button></td>
-
-                                <td class="npl" style="width:1px" align="center">
-                                    <button id="fj" onclick="genBoolean('generate')" type="button" class="input_boolean">Generate</button>
-
-                                </td>
-                                </td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-
-                </form>
 
             </div>
 
+        </div>
+    </div>
 
-            <!-- Second column where keyword input box and resulting keywords appear -->
-            <div class="col-xs-12 col-sm-6">
+</header>
 
-                <form action="#" onsubmit="handle(event, 'input_word', 'results_body')">
+<!-- Clickable search icon/logo for each individual site -->
+<div class="container logo-container" id="logos">
+    <div class="d-flex justify-content-center img-hover">
+        <img src=".\assets\Avature.png" onclick="" class="img-responsive p-2" alt="Avature">
+        <img src=".\assets\linkedin.png" onclick="boolSearch('linkedin')" class="img-responsive p-2" alt="LinkedIn">
+    </div>
 
-                    <table cellspacing="2" cellpadding="3" width="90%" align="center">
+</div>
 
-                        <colgroup>
-                            <col span="1" style="width: 75%;">
-                            <col span="1" style="width: 15%;">
-                        </colgroup>
 
-                        <tbody>
-                            <tr>
-                                <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Keyword</label></td>
-                            </tr>
+<!-- Content, Optional operator fields and Keyword generator -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <form action="#" name="optional_opt">
 
-                            <tr>
-                                <td class="npl epr"><input class="input_text" type="search" maxlength="512" style="width:97%" name="q" autocomplete="off" id="input_word">
 
-                                </td>
+                <table cellspacing="2" cellpadding="3" width="100%" align="center">
 
-                                <td class="npl" style="width:1px"><button id="fj" onclick="getWords('input_word', 'results_body')" type="button" class="input_submit">GO</button>
-                                </td>
-                            </tr>
-                            </tr>
+                    <colgroup>
+                        <col style="width: 5%;">
+                        <col span="2" style="width: 90%;">
+                        <col style="width: 5%;">
 
-                        </tbody>
-                    </table>
+                    </colgroup>
 
-                    </table>
-                </form>
-                <!-- p tag place holder where the resulting keywords will be displayed -->
+                    <tbody>
+
+                    <tr>
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"> </label></td>
+                        <td class="npb_header"><label for="what" id="what_label_top"
+                                                      aria-hidden="true">Operators</label></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
+
+                        <td class="npl epr"><input class="input_text" type="search" maxlength="512"
+                                                   onclick="setBoolFocus('radio2')"
+                                                   onkeypress="handle_bool(event, 'bool2', 'results_body')"
+                                                   style="width:97%" name="q" autocomplete="off" id="bool2"></td>
+                        <td><input type="radio" name="input_radio" class="bool_radio" value="bool2" id="radio2"></td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">NOT</label></td>
+
+                        <td class="npl epr"><input class="input_text" type="search" maxlength="512"
+                                                   onclick="setBoolFocus('bool_radio')"
+                                                   onkeypress="handle_bool(event, 'bool_not', 'results_body')"
+                                                   style="width:97%" name="q" autocomplete="off" id="bool_not"></td>
+                        <td><input type="radio" name="input_radio" class="bool_radio" value="bool_not" id="bool_radio">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">Company</label></td>
+
+                        <td class="npl epr">
+                            <div id="typeaheadmulti_company"><input class="typeahead" type="text" placeholder="Company"
+                                                                    id="company"></div>
+                        </td>
+                        <!--      <input class="input_text" type="search" placeholder="Company" maxlength="512" style="width:97%" name="q" autocomplete="off" id="company"></td> -->
+                    </tr>
+
+                    <tr>
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">JobTitle</label></td>
+
+                        <td class="npl epr">
+                            <div id="typeaheadmulti_title"><input class="typeahead" type="text" placeholder="Job Titles"
+                                                                  id="title"></div>
+                        </td>
+                        <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Job Title" maxlength="512" style="width:97%" name="q" autocomplete="off" id="title"></td> -->
+
+                    </tr>
+
+                    <tr>
+                        <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">GeoArea</label></td>
+                        <td class="npl epr">
+
+                            <div id="typeaheadmulti_geo"><input class="typeahead" type="text"
+                                                                placeholder="Geographic Area" id="geoarea"></div>
+                        </td>
+
+                        <!--    <td class="npl epr"><input class="input_text" type="search" placeholder="Geographic Area" maxlength="512" style="width:97%" name="q" autocomplete="off" id="geoarea"><input type="hidden" id="geocode"></td> -->
+                    </tr>
+
+
+                    </tbody>
+                </table>
                 <br>
-                <p id="results_body"></p>
-                <p style="text-align:center;"><img id="hubImage" src=".\assets\talent_hub1.png"></img>
-                </p>
+                <table cellspacing="2" cellpadding="3" width="100%" align="center">
+
+                    <colgroup>
+                        <col style="width: 50%;">
+                        <col style="width: 50%;">
+
+                    </colgroup>
+
+                    <tbody>
+
+                    <tr>
+
+                        <td class="npl" style="width:1px" align="center">
+                            <button id="fj" onclick="clearBoolean()" type="button" class="input_boolean">Clear</button>
+                        </td>
+
+                        <td class="npl" style="width:1px" align="center">
+                            <button id="fj" onclick="genBoolean('generate')" type="button" class="input_boolean">
+                                Generate
+                            </button>
+
+                        </td>
+                        </td>
+                    </tr>
 
 
+                    </tbody>
+                </table>
 
+            </form>
+
+        </div>
+
+
+        <!-- Second column where keyword input box and resulting keywords appear -->
+        <div class="col-xs-12 col-sm-6">
+
+            <form action="#" onsubmit="handle(event, 'input_word', 'results_body')">
+
+                <table cellspacing="2" cellpadding="3" width="90%" align="center">
+
+                    <colgroup>
+                        <col span="1" style="width: 75%;">
+                        <col span="1" style="width: 15%;">
+                    </colgroup>
+
+                    <tbody>
+                    <tr>
+                        <td class="npb_header"><label for="what" id="what_label_top" aria-hidden="true">Keyword</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="npl epr"><input class="input_text" type="search" maxlength="512" style="width:97%"
+                                                   name="q" autocomplete="off" id="input_word">
+
+                        </td>
+
+                        <td class="npl" style="width:1px">
+                            <button id="fj" onclick="getWords('input_word', 'results_body')" type="button"
+                                    class="input_submit">GO
+                            </button>
+                        </td>
+                    </tr>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                </table>
+            </form>
+            <!-- p tag place holder where the resulting keywords will be displayed -->
+            <br>
+            <p id="results_body"></p>
+            <p style="text-align:center;"><img id="hubImage" src=".\assets\talent_hub1.png"></img>
+            </p>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="jumbotron" id="footer1">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
 
             </div>
+
         </div>
     </div>
 
+</div>
 
+<script>
+    $(document).ready(function () {
+        init_Typeahead();
+    });
+</script>
 
-    <!-- Footer -->
-    <div class="jumbotron" id="footer1">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        $(document).ready(function() {
-            init_Typeahead();
-        });
-    </script>
-
-    <script>
-        $("#bool1").css({
-            "box-shadow": "0 0 5px rgba(255, 102, 0, 1)",
-            "border": "5px solid rgba(255, 102, 0, 1)"
-            //"box-shadow": "0 0 5px rgba(81, 203, 238, 1)",
-            //"border": "5px solid rgba(81, 203, 238, 1)"
-        });
-    </script>
-
+<script>
+    $("#bool1").css({
+        "box-shadow": "0 0 5px rgba(255, 102, 0, 1)",
+        "border": "5px solid rgba(255, 102, 0, 1)"
+        //"box-shadow": "0 0 5px rgba(81, 203, 238, 1)",
+        //"border": "5px solid rgba(81, 203, 238, 1)"
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
