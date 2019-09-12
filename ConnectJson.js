@@ -41,7 +41,7 @@ function testBox(word, tab_button) {
         var items = response.items;
         items.forEach(function (item, index){
             var x = document.createElement("INPUT");
-            var butId = item.word.replace("_", " ");
+            var butId = item.word.replace(/_/g, " ");
             var score = item.score;
             x.setAttribute("type", "button");
             x.setAttribute("class", "results_buttons");
