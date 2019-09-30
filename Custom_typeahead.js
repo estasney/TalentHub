@@ -9,7 +9,7 @@ function init_geoArray() {
 }
 
 function init_Typeahead() {
-    <!-- Company names typeahead autocomplete -->
+    //<!-- Company names typeahead autocomplete -->
 
     var language = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -51,7 +51,7 @@ function init_Typeahead() {
 
 
 
-    <!-- Job Titles typeahead autocomplete -->
+    //<!-- Job Titles typeahead autocomplete -->
 
     var language = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -90,7 +90,7 @@ function init_Typeahead() {
     });
 
 
-    <!-- Geographic Area typeahead autocomplete -->
+    //<!-- Geographic Area typeahead autocomplete -->
 
 
 

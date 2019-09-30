@@ -67,7 +67,7 @@ input.input_text:focus {
     border-color: #339933;
 }
 
-input.results_buttons {
+button.results_buttons {
     background-color: #f60;
     text-align: center;
     border: 1px solid #ccc;
@@ -83,6 +83,43 @@ input.results_buttons {
     height: 45px;
     -webkit-appearance: none;
 }
+
+button.RESULTS {
+    background-color: #f60;
+    text-align: center;
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 22px;
+    padding: 4px 7px;
+    outline: 0;
+    height: 45px;
+    -webkit-appearance: none;
+}
+
+.btn {
+
+    text-align: center;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 18px;
+    margin: 5px;
+    -webkit-appearance: none;
+}
+
+
+.btn:hover{
+    background: red;
+}
+
 
 .npb {
     padding-bottom: 0;
@@ -176,3 +213,12 @@ input.bool_radio {
     height: 25px !important;
 }
 */
+#bool1{
+box-shadow: "0 0 5px rgba(255, 102, 0, 1)";
+border: "5px solid rgba(255, 102, 0, 1)";
+}
+
+#bool2{
+    box-shadow: "0 0 5px rgba(255, 102, 0, 1)";
+    border: "5px solid rgba(255, 102, 0, 1)";
+    }

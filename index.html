@@ -14,6 +14,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="css/mystyles.css" rel="stylesheet">
     <link href="css/typeahead-multiselect.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Javascript files -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -22,6 +23,8 @@
     <script type="text/javascript" src="Boolsearch.js"></script>
     <script type="text/javascript" src="Custom_typeahead.js"></script>
     <script type="text/javascript" src="Html_helper.js"></script>
+    <script type="text/javascript" src="Button.js"></script>
+    <script type="text/javascript" src="SearchLinkedIn.js"></script>
     <!-- jQuery UI Autocomple for Geographic Area.  Data retrieve from json file -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <!-- <link rel="stylesheet" href="https://rawgit.com/ahmohamed/typeahead-multiselect/master/typeahead-multiselect.min.css"> -->
@@ -62,11 +65,13 @@
                     <tr>
 
                         <td class="npb"><label for="where" id="where_label_top" aria-hidden="true"></label></td>
-                        <td class="npl epr"><textarea class="input_text_main" type="search" placeholder="Boolean String"
-                                                      onclick="setBoolFocus('radio1')"
+                        <td class="npl epr boolfield" id="bool1" onclick="setBoolFocus('radio1')" type="search" placeholder="Boolean String"
+                                                      
                                                       onkeypress="handle_bool(event, 'bool1', 'results_body')"
                                                       style="width:100%" name="q" autocomplete="off"
-                                                      id="bool1"></textarea></td>
+                                                      >
+                                                                  
+                                                    </td>
 
 
                         <td><input type="radio" name="input_radio" class="bool_radio" value="bool1" checked="checked"
@@ -90,7 +95,7 @@
 <div class="container logo-container" id="logos">
     <div class="d-flex justify-content-center img-hover">
         <img src=".\assets\Avature.png" onclick="" class="img-responsive p-2" alt="Avature">
-        <img src=".\assets\linkedin.png" onclick="boolSearch('linkedin')" class="img-responsive p-2" alt="LinkedIn">
+        <img src=".\assets\linkedin.png" onclick="SearchLinkedIn()" class="img-responsive p-2" alt="LinkedIn">
     </div>
 
 </div>
@@ -120,27 +125,35 @@
                                                       aria-hidden="true">Operators</label></td>
 
                     </tr>
+                   
 
                     <tr>
                         <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">AND</label></td>
 
-                        <td class="npl epr"><input class="input_text" type="search" maxlength="512"
-                                                   onclick="setBoolFocus('radio2')"
+                        <td class="npl epr boolfield" onclick="setBoolFocus('radio2')"
                                                    onkeypress="handle_bool(event, 'bool2', 'results_body')"
                                                    style="width:97%" name="q" autocomplete="off" id="bool2"></td>
                         <td><input type="radio" name="input_radio" class="bool_radio" value="bool2" id="radio2"></td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
                     </tr>
 
 
                     <tr>
                         <td class="npb"><label for="where" id="where_label_top" aria-hidden="true">NOT</label></td>
 
-                        <td class="npl epr"><input class="input_text" type="search" maxlength="512"
+                        <td class="npl epr boolfield"
                                                    onclick="setBoolFocus('bool_radio')"
                                                    onkeypress="handle_bool(event, 'bool_not', 'results_body')"
                                                    style="width:97%" name="q" autocomplete="off" id="bool_not"></td>
                         <td><input type="radio" name="input_radio" class="bool_radio" value="bool_not" id="bool_radio">
                         </td>
+                    </tr>
+
+                    <tr>
+                        <td>&nbsp;</td>
                     </tr>
 
                     <tr>
@@ -196,7 +209,7 @@
                         </td>
 
                         <td class="npl" style="width:1px" align="center">
-                            <button id="fj" onclick="genBoolean('generate')" type="button" class="input_boolean">
+                            <button id="fj" onclick="generateBoolean()" type="button" class="input_boolean">
                                 Generate
                             </button>
 
@@ -286,6 +299,18 @@
     $("#bool1").css({
         "box-shadow": "0 0 5px rgba(255, 102, 0, 1)",
         "border": "5px solid rgba(255, 102, 0, 1)"
+        //"box-shadow": "0 0 5px rgba(81, 203, 238, 1)",
+        //"border": "5px solid rgba(81, 203, 238, 1)"
+    });
+    $("#bool2").css({
+        "box-shadow": "0 0 5px rgba(255, 102, 0, 1)",
+        "border": "1px solid rgba(255, 102, 0, 1)"
+        //"box-shadow": "0 0 5px rgba(81, 203, 238, 1)",
+        //"border": "5px solid rgba(81, 203, 238, 1)"
+    });
+    $("#bool_not").css({
+        "box-shadow": "0 0 5px rgba(255, 102, 0, 1)",
+        "border": "1px solid rgba(255, 102, 0, 1)"
         //"box-shadow": "0 0 5px rgba(81, 203, 238, 1)",
         //"border": "5px solid rgba(81, 203, 238, 1)"
     });
