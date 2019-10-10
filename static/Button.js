@@ -5,11 +5,11 @@ var boolButtonArrayNot = []
 var boolButtonArrayOr = []
 
 //Global variables for operator image sources
-var or_src = "assets/or2.png"
-var and_src = "assets/and2.png"
-var not_src = "assets/not2.png"
-var left_src = "assets/left_par.png"
-var right_src = "assets/right_par.png"
+var or_src = "static/src/img/or2.png"
+var and_src = "static/src/img/and2.png"
+var not_src = "static/src/img/not2.png"
+var left_src = "static/src/img/left_par.png"
+var right_src = "static/src/img/right_par.png"
 
 //Button Object for words and phrases returned from search
 //var txtValue, btnType are string type
